@@ -4,20 +4,46 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  hono@4.6.18:
+    hash: 8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed
+    path: patches/hono@4.6.18.patch
+
 importers:
 
   .:
     dependencies:
+      '@hono/zod-validator':
+        specifier: ^0.4.2
+        version: 0.4.2(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))(zod@3.24.1)
+      '@t3-oss/env-core':
+        specifier: ^0.11.1
+        version: 0.11.1(typescript@5.7.3)(zod@3.24.1)
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
+      hono:
+        specifier: ^4.6.18
+        version: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
       react:
         specifier: ^19.0.0
         version: 19.0.0
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      zod:
+        specifier: ^3.24.1
+        version: 3.24.1
     devDependencies:
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.19.0
+      '@hono/vite-build':
+        specifier: ^1.2.1
+        version: 1.2.1(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))
+      '@hono/vite-dev-server':
+        specifier: ^0.18.1
+        version: 0.18.1(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.8
@@ -318,6 +344,37 @@ packages:
     resolution: {integrity: sha512-lB05FkqEdUg2AA0xEbUz0SnkXT1LcCTa438W4IWTUh4hdOnVbQyOJ81OrDXsJk/LSiJHubgGEFoR5EHq1NsH1A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@hono/node-server@1.13.7':
+    resolution: {integrity: sha512-kTfUMsoloVKtRA2fLiGSd9qBddmru9KadNyhJCwgKBxTiNkaAJEwkVN9KV/rS4HtmmNRtUh6P+YpmjRMl0d9vQ==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: ^4
+
+  '@hono/vite-build@1.2.1':
+    resolution: {integrity: sha512-lTtfA65OZDD9InxCE6BKDjwhRwelDIFvFULZE/IkAWXm4jm08k12lkbYNCTkCRvgT3w5zAVgn2Yd4tNySe6oCw==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: '*'
+
+  '@hono/vite-dev-server@0.18.1':
+    resolution: {integrity: sha512-Hud6Vsm+5jZDYGuchOVrc/Cr+CqydLH9yBc7VY8ChI1PH0WKSxG12t/qtQs4otuPDuUhowtemCLrk3TpMONYjQ==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: '*'
+      miniflare: '*'
+      wrangler: '*'
+    peerDependenciesMeta:
+      miniflare:
+        optional: true
+      wrangler:
+        optional: true
+
+  '@hono/zod-validator@0.4.2':
+    resolution: {integrity: sha512-1rrlBg+EpDPhzOV4hT9pxr5+xDVmKuz6YJl+la7VCwK6ass5ldyKm5fD+umJdV2zhHD6jROoCCv8NbTwyfhT0g==}
+    peerDependencies:
+      hono: '>=3.9.0'
+      zod: ^3.19.1
+
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
     engines: {node: '>=18.18.0'}
@@ -462,6 +519,15 @@ packages:
     resolution: {integrity: sha512-5hqO5S3PTEO2E5VjCePxv40gIgyS2KvO7E7/vvC/NbIW4SIRamkMr1hqj+5Y67fbBWv/bQLB6KelBQmXlyCjWA==}
     cpu: [x64]
     os: [win32]
+
+  '@t3-oss/env-core@0.11.1':
+    resolution: {integrity: sha512-MaxOwEoG1ntCFoKJsS7nqwgcxLW1SJw238AJwfJeaz3P/8GtkxXZsPPolsz1AdYvUTbe3XvqZ/VCdfjt+3zmKw==}
+    peerDependencies:
+      typescript: '>=5.0.0'
+      zod: ^3.0.0
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -623,6 +689,10 @@ packages:
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
 
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
+
   electron-to-chromium@1.5.87:
     resolution: {integrity: sha512-mPFwmEWmRivw2F8x3w3l2m6htAUN97Gy0kwpO++2m9iT1Gt8RCFVUfv9U/sIbHJ6rY4P6/ooqFL/eL7ock+pPg==}
 
@@ -762,6 +832,10 @@ packages:
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
+
+  hono@4.6.18:
+    resolution: {integrity: sha512-Fu7hEPvdwtPG8LqSAiPn8p8HjD+PDxrP/HVnwRBnwtVKOn5zDDKsw0ma2Xt58oq97Rlp3t/mRNADEV/Ym6cDng==}
+    engines: {node: '>=16.9.0'}
 
   ignore@5.3.2:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
@@ -1060,6 +1134,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+
 snapshots:
 
   '@ampproject/remapping@2.3.0':
@@ -1294,6 +1371,25 @@ snapshots:
       '@eslint/core': 0.10.0
       levn: 0.4.1
 
+  '@hono/node-server@1.13.7(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))':
+    dependencies:
+      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
+
+  '@hono/vite-build@1.2.1(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))':
+    dependencies:
+      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
+
+  '@hono/vite-dev-server@0.18.1(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))':
+    dependencies:
+      '@hono/node-server': 1.13.7(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))
+      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
+      minimatch: 9.0.5
+
+  '@hono/zod-validator@0.4.2(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))(zod@3.24.1)':
+    dependencies:
+      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
+      zod: 3.24.1
+
   '@humanfs/core@0.19.1': {}
 
   '@humanfs/node@0.16.6':
@@ -1392,6 +1488,12 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.32.0':
     optional: true
+
+  '@t3-oss/env-core@0.11.1(typescript@5.7.3)(zod@3.24.1)':
+    dependencies:
+      zod: 3.24.1
+    optionalDependencies:
+      typescript: 5.7.3
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -1588,6 +1690,8 @@ snapshots:
 
   deep-is@0.1.4: {}
 
+  dotenv@16.4.7: {}
+
   electron-to-chromium@1.5.87: {}
 
   esbuild@0.24.2:
@@ -1756,6 +1860,8 @@ snapshots:
   graphemer@1.4.0: {}
 
   has-flag@4.0.0: {}
+
+  hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed): {}
 
   ignore@5.3.2: {}
 
@@ -1988,3 +2094,5 @@ snapshots:
   yallist@3.1.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@3.24.1: {}
