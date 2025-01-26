@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => {
   if (mode === "client") {
     return {
       build: {
+        emptyOutDir: false,
         rollupOptions: {
           input: "./src/client.tsx",
           output: {
@@ -28,7 +29,7 @@ export default defineConfig(({ mode }) => {
         devServer({
           env,
           adapter,
-          entry: "src/index.tsx",
+          entry: "src/server/hono.tsx",
         }),
       ],
     };

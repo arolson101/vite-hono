@@ -16,6 +16,7 @@ app.get("/api/clock", (c) => {
 });
 
 app.get("*", (c) => {
+  const PROD = c.env.NODE_ENV === "production";
   return c.html(
     renderToString(
       <html>
@@ -26,7 +27,7 @@ app.get("*", (c) => {
             rel="stylesheet"
             href="https://cdn.simplecss.org/simple.min.css"
           />
-          {import.meta.env.PROD ? (
+          {PROD ? (
             <script type="module" src="/static/client.js"></script>
           ) : (
             <script type="module" src="/src/client.tsx"></script>

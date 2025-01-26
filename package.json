@@ -5,13 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "depcheck": "depcheck",
+    "build": "concurrently \"pnpm:build:*\"",
+    "build:typecheck": "tsc --noemit",
+    "build:client": "vite build --mode client",
+    "build:server": "tsup-node",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "pnpm build && pnpm start",
+    "start": "node --env-file .env dist/serve-node"
   },
   "dependencies": {
-    "@hono/zod-validator": "^0.4.2",
-    "@t3-oss/env-core": "^0.11.1",
     "hono": "^4.6.18",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -19,19 +22,28 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
+    "@hono/node-server": "^1.13.7",
     "@hono/vite-build": "^1.2.1",
     "@hono/vite-dev-server": "^0.18.1",
+    "@hono/zod-validator": "^0.4.2",
+    "@t3-oss/env-core": "^0.11.1",
+    "@types/node": "^22.10.10",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "@vitejs/plugin-react": "^4.3.4",
+    "babel-plugin-react-compiler": "19.0.0-beta-decd7b8-20250118",
+    "concurrently": "^9.1.2",
     "dotenv": "^16.4.7",
     "eslint": "^9.18.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
+    "tsup": "^8.3.6",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.20.0",
-    "vite": "^6.0.7"
+    "vite": "^6.0.7",
+    "vite-plugin-html": "^3.2.2",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "pnpm": {
     "patchedDependencies": {
