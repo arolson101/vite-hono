@@ -5,34 +5,37 @@ import { defineConfig } from "vite";
 import { config } from "dotenv";
 
 export default defineConfig(({ mode }) => {
-  if (mode === "client") {
-    return {
-      build: {
-        emptyOutDir: false,
-        rollupOptions: {
-          input: "./src/client.tsx",
-          output: {
-            entryFileNames: "static/client.js",
+  switch (mode) {
+    case "client":
+      return {
+        build: {
+          emptyOutDir: false,
+          rollupOptions: {
+            input: "./src/client.tsx",
+            output: {
+              entryFileNames: "static/client.js",
+            },
           },
         },
-      },
-    };
-  } else {
-    return {
-      ssr: {
-        external: ["react", "react-dom"],
-      },
-      plugins: [
-        build({
-          outputDir: "server-build",
-        }),
-        devServer({
-          env,
-          adapter,
-          entry: "src/server/hono.tsx",
-        }),
-      ],
-    };
+      };
+    case "development":
+      return {
+        ssr: {
+          external: ["react", "react-dom"],
+        },
+        plugins: [
+          build({
+            outputDir: "server-build",
+          }),
+          devServer({
+            env,
+            adapter,
+            entry: "src/server/hono.tsx",
+          }),
+        ],
+      };
+    default:
+      throw new Error(`Unknown mode: ${mode}`);
   }
 });
 
