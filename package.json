@@ -11,6 +11,7 @@
     "dev": "vite",
     "format": "prettier --write .",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "pnpm build && pnpm start",
     "start": "cd dist && node --env-file=../.env serve-node.js",
     "typecheck": "tsc --noemit"
