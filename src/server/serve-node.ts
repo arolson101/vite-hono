@@ -4,7 +4,7 @@ import { compress } from "hono/compress";
 import app from "./hono";
 import { parseEnv } from "./env";
 
-const env = parseEnv(import.meta.env);
+const env = parseEnv(process.env);
 
 app.use(compress());
 app.use("*", serveStatic({ root: "./public" }));

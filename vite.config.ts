@@ -1,52 +1,71 @@
-import build from "@hono/vite-build/node";
-import devServer from "@hono/vite-dev-server";
+import devServer, { defaultOptions } from "@hono/vite-dev-server";
 import adapter from "@hono/vite-dev-server/node";
 import { defineConfig } from "vite";
 import { config } from "dotenv";
+import { createHtmlPlugin } from "vite-plugin-html";
+import react from "@vitejs/plugin-react";
+import { parseEnv } from "./src/server/env";
+import tsconfigPaths from "vite-tsconfig-paths";
+
+type ModeType = "development" | "client" | "server";
+
+// validate env vars before starting
+config();
+parseEnv(process.env);
 
 export default defineConfig(({ mode }) => {
-  switch (mode) {
+  switch (mode as ModeType) {
     case "client":
-      return {
-        build: {
-          emptyOutDir: false,
-          rollupOptions: {
-            input: "./src/client.tsx",
-            output: {
-              entryFileNames: "static/client.js",
-            },
-          },
-        },
-      };
     case "development":
       return {
-        ssr: {
-          external: ["react", "react-dom"],
+        mode: mode === "client" ? "production " : "development",
+        build: {
+          outDir: "./dist/public",
+          emptyOutDir: false,
         },
         plugins: [
-          build({
-            outputDir: "server-build",
+          tsconfigPaths(),
+          react({
+            babel: {
+              plugins: ["babel-plugin-react-compiler"],
+            },
           }),
-          devServer({
-            env,
-            adapter,
-            entry: "src/server/hono.tsx",
+          createHtmlPlugin({
+            minify: true,
+            entry: "src/client.tsx",
+            template: "index.html",
+            inject: {
+              data: {
+                title: "test",
+              },
+            },
           }),
+          mode === "development" &&
+            devServer({
+              env() {
+                const result = config({
+                  override: true,
+                  // debug: true,
+                });
+                if (result.error) {
+                  throw result.error;
+                }
+                return result.parsed!;
+              },
+              adapter,
+              entry: "src/server/hono.tsx",
+              exclude: [
+                ...defaultOptions.exclude!, //
+                /.*\.html$/,
+              ],
+            }),
         ],
+        server: {
+          port: 9999,
+        },
       };
+
     default:
-      throw new Error(`Unknown mode: ${mode}`);
+      throw new Error(`Unexpected mode: ${mode}`);
   }
 });
-
-function env() {
-  const result = config({
-    override: true,
-    // debug: true,
-    encoding: "utf8",
-  });
-  if (result.error) {
-    throw result.error;
-  }
-  return result.parsed!;
-}

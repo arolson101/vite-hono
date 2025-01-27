@@ -6,13 +6,13 @@
   "scripts": {
     "dev": "vite",
     "depcheck": "depcheck",
-    "build": "concurrently \"pnpm:build:*\"",
-    "build:typecheck": "tsc --noemit",
+    "build": "pnpm typecheck && pnpm build:client && pnpm build:server",
+    "typecheck": "tsc --noemit",
     "build:client": "vite build --mode client",
     "build:server": "tsup-node",
     "lint": "eslint .",
     "preview": "pnpm build && pnpm start",
-    "start": "node --env-file .env dist/serve-node"
+    "start": "cd dist && node --env-file=../.env serve-node.js"
   },
   "dependencies": {
     "hono": "^4.6.18",
@@ -23,7 +23,6 @@
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@hono/node-server": "^1.13.7",
-    "@hono/vite-build": "^1.2.1",
     "@hono/vite-dev-server": "^0.18.1",
     "@hono/zod-validator": "^0.4.2",
     "@t3-oss/env-core": "^0.11.1",

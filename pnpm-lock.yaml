@@ -32,9 +32,6 @@ importers:
       '@hono/node-server':
         specifier: ^1.13.7
         version: 1.13.7(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))
-      '@hono/vite-build':
-        specifier: ^1.2.1
-        version: 1.2.1(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))
       '@hono/vite-dev-server':
         specifier: ^0.18.1
         version: 0.18.1(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))
@@ -370,12 +367,6 @@ packages:
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: ^4
-
-  '@hono/vite-build@1.2.1':
-    resolution: {integrity: sha512-lTtfA65OZDD9InxCE6BKDjwhRwelDIFvFULZE/IkAWXm4jm08k12lkbYNCTkCRvgT3w5zAVgn2Yd4tNySe6oCw==}
-    engines: {node: '>=18.14.1'}
-    peerDependencies:
-      hono: '*'
 
   '@hono/vite-dev-server@0.18.1':
     resolution: {integrity: sha512-Hud6Vsm+5jZDYGuchOVrc/Cr+CqydLH9yBc7VY8ChI1PH0WKSxG12t/qtQs4otuPDuUhowtemCLrk3TpMONYjQ==}
@@ -1860,10 +1851,6 @@ snapshots:
       levn: 0.4.1
 
   '@hono/node-server@1.13.7(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))':
-    dependencies:
-      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
-
-  '@hono/vite-build@1.2.1(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))':
     dependencies:
       hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
 
