@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm typecheck && pnpm build:client && pnpm build:server",
+    "build": "pnpm typecheck && pnpm lint && pnpm build:client && pnpm build:server",
     "build:client": "vite build --mode client",
     "build:server": "tsup-node",
     "depcheck": "depcheck --ignores=\"@trivago/prettier-plugin-*,prettier-plugin-*,babel-plugin-*\"",
@@ -44,7 +44,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "tsup": "^8.3.6",
     "typescript": "~5.7.2",
-    "typescript-eslint": "^8.20.0",
+    "typescript-eslint": "^8.21.0",
     "vite": "^6.0.7",
     "vite-plugin-html": "^3.2.2",
     "vite-tsconfig-paths": "^5.1.4"
