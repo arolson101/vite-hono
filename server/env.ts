@@ -1,6 +1,5 @@
 import { createEnv } from '@t3-oss/env-core'
-import { env } from 'hono/adapter'
-import { createMiddleware } from 'hono/factory'
+import 'dotenv/config'
 import { z } from 'zod'
 
 type RuntimeEnv = Record<string, string | boolean | number | undefined>
@@ -14,6 +13,7 @@ export const parseEnv = (runtimeEnv: RuntimeEnv) =>
     server: {
       NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
       PORT: z.number().default(9999),
+      LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']).default('info'),
       MY_VAR: z.string(),
     },
 
@@ -40,8 +40,4 @@ export const parseEnv = (runtimeEnv: RuntimeEnv) =>
   })
 
 export type EnvVars = ReturnType<typeof parseEnv>
-
-export const envMiddleware = createMiddleware(async (c, next) => {
-  c.env = parseEnv(env(c))
-  await next()
-})
+export const env = parseEnv(process.env)

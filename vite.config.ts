@@ -5,7 +5,7 @@ import { config } from 'dotenv'
 import { defineConfig } from 'vite'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import { parseEnv } from './src/server/env'
+import { parseEnv } from './server/env'
 
 type ModeType = 'development' | 'client' | 'server'
 
@@ -53,7 +53,7 @@ export default defineConfig(({ mode }) => {
                 return result.parsed!
               },
               adapter,
-              entry: 'src/server/hono.tsx',
+              entry: 'server/hono.ts',
               exclude: [
                 ...defaultOptions.exclude!, //
                 /.*\.html$/,
