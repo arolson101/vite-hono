@@ -1,9 +1,9 @@
-import { createEnv } from "@t3-oss/env-core";
-import { z } from "zod";
-import { createMiddleware } from "hono/factory";
-import { env } from "hono/adapter";
+import { createEnv } from '@t3-oss/env-core'
+import { env } from 'hono/adapter'
+import { createMiddleware } from 'hono/factory'
+import { z } from 'zod'
 
-type RuntimeEnv = Record<string, string | boolean | number | undefined>;
+type RuntimeEnv = Record<string, string | boolean | number | undefined>
 
 export const parseEnv = (runtimeEnv: RuntimeEnv) =>
   createEnv({
@@ -12,9 +12,7 @@ export const parseEnv = (runtimeEnv: RuntimeEnv) =>
      * that will be used to validate the environment variables.
      */
     server: {
-      NODE_ENV: z
-        .enum(["development", "test", "production"])
-        .default("development"),
+      NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
       PORT: z.number().default(9999),
       MY_VAR: z.string(),
     },
@@ -39,11 +37,11 @@ export const parseEnv = (runtimeEnv: RuntimeEnv) =>
      * explicitly specify this option as true.
      */
     emptyStringAsUndefined: true,
-  });
+  })
 
-export type EnvVars = ReturnType<typeof parseEnv>;
+export type EnvVars = ReturnType<typeof parseEnv>
 
 export const envMiddleware = createMiddleware(async (c, next) => {
-  c.env = parseEnv(env(c));
-  await next();
-});
+  c.env = parseEnv(env(c))
+  await next()
+})

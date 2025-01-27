@@ -1,19 +1,19 @@
 {
   "name": "vite-hono",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "depcheck": "depcheck",
-    "format": "prettier --write .",
     "build": "pnpm typecheck && pnpm build:client && pnpm build:server",
-    "typecheck": "tsc --noemit",
     "build:client": "vite build --mode client",
     "build:server": "tsup-node",
+    "depcheck": "depcheck",
+    "dev": "vite",
+    "format": "prettier --write .",
     "lint": "eslint .",
     "preview": "pnpm build && pnpm start",
-    "start": "cd dist && node --env-file=../.env serve-node.js"
+    "start": "cd dist && node --env-file=../.env serve-node.js",
+    "typecheck": "tsc --noemit"
   },
   "dependencies": {
     "hono": "^4.6.18",
