@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => {
           }),
           createHtmlPlugin({
             minify: true,
-            entry: 'src/client.tsx',
+            entry: 'src/entry-client.tsx',
             template: 'index.html',
             inject: {
               data: {
