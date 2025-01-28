@@ -20,7 +20,11 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+
     "paths": {
+      "~src/*": ["./src/*"],
       "~shared/*": ["./shared/*"],
       "~server/*": ["./server/*"]
     }

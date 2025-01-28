@@ -9,4 +9,11 @@ app.get('/api/clock', c => {
   })
 })
 
+app.get('/index.html', async c => {
+  const { render } = await import('../src/entry-server.tsx')
+  const html = render(c.req.url)
+  const rendered = '<!doctype html>\n' + html
+  return c.html(rendered)
+})
+
 export default app

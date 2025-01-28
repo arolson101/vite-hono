@@ -2,13 +2,34 @@ import { useState } from 'react'
 
 export function App() {
   return (
-    <>
-      <h1>Hello, Hono with React!</h1>
-      <h2>Example of useState()</h2>
-      <Counter />
-      <h2>Example of API fetch()</h2>
-      <ClockButton />
-    </>
+    <html lang='en'>
+      <head>
+        <meta charSet='UTF-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <title>Hello, Hono with React!</title>
+        <link rel='stylesheet' href='https://cdn.simplecss.org/simple.min.css' />
+
+        <script type='module'>
+          {`
+          import RefreshRuntime from "/@react-refresh"
+          RefreshRuntime.injectIntoGlobalHook(window)
+          window.$RefreshReg$ = () => {}
+          window.$RefreshSig$ = () => (type) => type
+          window.__vite_plugin_react_preamble_installed__ = true
+        `}
+        </script>
+        <script type='module' src='/@vite/client'></script>
+      </head>
+      <body>
+        <h1>Hello, Hono with React!</h1>
+        <h2>Example of useState()</h2>
+        <Counter />
+        <h2>Example of API fetch()</h2>
+        <ClockButton />
+
+        <script type="module" src="/src/entry-client.tsx"></script>
+      </body>
+    </html>
   )
 }
 

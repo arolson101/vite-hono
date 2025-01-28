@@ -30,16 +30,16 @@ export default defineConfig(({ mode }) => {
               plugins: ['babel-plugin-react-compiler'],
             },
           }),
-          createHtmlPlugin({
-            minify: true,
-            entry: 'src/entry-client.tsx',
-            template: 'index.html',
-            inject: {
-              data: {
-                title: 'test',
-              },
-            },
-          }),
+          // createHtmlPlugin({
+          //   minify: true,
+          //   entry: 'src/entry-client.tsx',
+          //   template: 'index.html',
+          //   inject: {
+          //     data: {
+          //       title: 'test',
+          //     },
+          //   },
+          // }),
           mode === 'development' &&
             devServer({
               env() {
@@ -56,8 +56,9 @@ export default defineConfig(({ mode }) => {
               entry: 'server/hono.ts',
               exclude: [
                 ...defaultOptions.exclude!, //
-                /.*\.html$/,
+                // /.*\.html$/,
               ],
+              injectClientScript: false,
             }),
         ],
         server: {
@@ -65,7 +66,7 @@ export default defineConfig(({ mode }) => {
         },
       }
 
-    default:
-      throw new Error(`Unexpected mode: ${mode}`)
+    // default:
+    //   throw new Error(`Unexpected mode: ${mode}`)
   }
 })
