@@ -1,72 +1,41 @@
-import devServer, { defaultOptions } from '@hono/vite-dev-server'
-import adapter from '@hono/vite-dev-server/node'
+import { tanstackRouterAdapter } from '@ssrx/plugin-tanstack-router/adapter'
+import { ssrx } from '@ssrx/vite/plugin'
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
-import { config } from 'dotenv'
 import { defineConfig } from 'vite'
-import { createHtmlPlugin } from 'vite-plugin-html'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import { parseEnv } from './server/env'
 
-type ModeType = 'development' | 'client' | 'server'
+// https://vitejs.dev/config/
+export default defineConfig(({ isSsrBuild, command }) => ({
+  plugins: [
+    tsconfigPaths(),
+    react(),
+    TanStackRouterVite(),
+    ssrx({
+      serverFile: 'src/server.ts',
+      clientEntry: 'src/entry.client.tsx',
+      routesFile: 'src/routeTree.gen.ts',
+      routerAdapter: tanstackRouterAdapter(),
+    }),
+  ],
 
-// validate env vars before starting
-config()
-parseEnv(process.env)
+  build: {
+    rollupOptions: {
+      output: {
+        // Example of how one could break out larger more stable 3rd party libs into separate chunks for
+        // improved preloading
+        manualChunks: !isSsrBuild && command === 'build' ? manualChunks : undefined,
+      },
+    },
+  },
+}))
 
-export default defineConfig(({ mode }) => {
-  switch (mode as ModeType) {
-    case 'client':
-    case 'development':
-      return {
-        mode: mode === 'client' ? 'production ' : 'development',
-        build: {
-          outDir: './dist/public',
-          emptyOutDir: false,
-        },
-        plugins: [
-          tsconfigPaths(),
-          react({
-            babel: {
-              plugins: ['babel-plugin-react-compiler'],
-            },
-          }),
-          // createHtmlPlugin({
-          //   minify: true,
-          //   entry: 'src/entry-client.tsx',
-          //   template: 'index.html',
-          //   inject: {
-          //     data: {
-          //       title: 'test',
-          //     },
-          //   },
-          // }),
-          mode === 'development' &&
-            devServer({
-              env() {
-                const result = config({
-                  override: true,
-                  // debug: true,
-                })
-                if (result.error) {
-                  throw result.error
-                }
-                return result.parsed!
-              },
-              adapter,
-              entry: 'server/hono.ts',
-              exclude: [
-                ...defaultOptions.exclude!, //
-                // /.*\.html$/,
-              ],
-              injectClientScript: false,
-            }),
-        ],
-        server: {
-          port: 9999,
-        },
-      }
-
-    // default:
-    //   throw new Error(`Unexpected mode: ${mode}`)
+function manualChunks(id: string) {
+  if (id.match(/node_modules\/(react\/|react-dom\/)/)) {
+    return 'vendor-rendering'
   }
-})
+
+  // if (id.match(/node_modules\/(@remix-run|react-router)/)) {
+  //   return 'vendor-router';
+  // }
+}
