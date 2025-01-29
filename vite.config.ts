@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react'
 import { config } from 'dotenv'
 import { defineConfig } from 'vite'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import Inspect from 'vite-plugin-inspect'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { parseEnv } from './server/env'
 
@@ -24,6 +25,7 @@ export default defineConfig(({ mode }) => {
           emptyOutDir: false,
         },
         plugins: [
+          Inspect(),
           tsconfigPaths(),
           react({
             babel: {
@@ -66,7 +68,7 @@ export default defineConfig(({ mode }) => {
         },
       }
 
-    // default:
-    //   throw new Error(`Unexpected mode: ${mode}`)
+    default:
+      throw new Error(`Unexpected mode: ${mode}`)
   }
 })

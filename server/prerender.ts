@@ -6,7 +6,7 @@ import { build } from 'vite'
 
 const __dirname = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
 console.log('__dirname', __dirname)
-const toAbsolute = p => path.resolve(__dirname, p)
+const toAbsolute = (p: string) => path.resolve(__dirname, p)
 
 const { render } = await import('../src/entry-server.tsx')
 
@@ -30,12 +30,11 @@ const { render } = await import('../src/entry-server.tsx')
     mode: 'client',
     build: {
       outDir: path.resolve(__dirname, './dist/public'),
-      
+
       emptyOutDir: false,
 
       rollupOptions: {
         input: {
-
           main: path.resolve(__dirname, filePath),
           // nested: path.resolve(__dirname, 'nested/index.html'),
         },
