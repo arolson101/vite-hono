@@ -4,9 +4,9 @@ import { compress } from 'hono/compress'
 import { env } from './env'
 import app from './hono'
 
-// app.use(compress())
-// app.use('*', serveStatic({ root: './public' }))
-// app.use('*', serveStatic({ path: './public/index.html' }))
+app.use(compress())
+app.use('*', serveStatic({ root: './public' }))
+app.use('*', serveStatic({ path: './public/index.html' }))
 
 serve(
   {

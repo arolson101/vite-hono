@@ -1,12 +1,15 @@
-import devServer, { defaultOptions } from '@hono/vite-dev-server'
+import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/node'
 import react from '@vitejs/plugin-react'
 import { config } from 'dotenv'
-import { defineConfig } from 'vite'
-import { createHtmlPlugin } from 'vite-plugin-html'
-import Inspect from 'vite-plugin-inspect'
+// import path from 'node:path'
+// import { fileURLToPath, pathToFileURL } from 'node:url'
+import { defineConfig, type Plugin } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { parseEnv } from './server/env'
+
+// const __filename = fileURLToPath(import.meta.url)
+// const __dirname = path.dirname(__filename)
 
 type ModeType = 'development' | 'client' | 'server'
 
@@ -19,29 +22,23 @@ export default defineConfig(({ mode }) => {
     case 'client':
     case 'development':
       return {
+        clearScreen: false,
         mode: mode === 'client' ? 'production ' : 'development',
         build: {
           outDir: './dist/public',
           emptyOutDir: false,
         },
+        resolve: {
+          preserveSymlinks: true,
+        },
         plugins: [
-          Inspect(),
           tsconfigPaths(),
           react({
             babel: {
               plugins: ['babel-plugin-react-compiler'],
             },
           }),
-          // createHtmlPlugin({
-          //   minify: true,
-          //   entry: 'src/entry-client.tsx',
-          //   template: 'index.html',
-          //   inject: {
-          //     data: {
-          //       title: 'test',
-          //     },
-          //   },
-          // }),
+          prerenderPlugin(),
           mode === 'development' &&
             devServer({
               env() {
@@ -57,8 +54,8 @@ export default defineConfig(({ mode }) => {
               adapter,
               entry: 'server/hono.ts',
               exclude: [
-                ...defaultOptions.exclude!, //
-                // /.*\.html$/,
+                // only use dev server on /api calls
+                /^(?!\/api\/).*$/i,
               ],
               injectClientScript: false,
             }),
@@ -72,3 +69,76 @@ export default defineConfig(({ mode }) => {
       throw new Error(`Unexpected mode: ${mode}`)
   }
 })
+
+const reactPreamble = `
+<script type="module">
+  import RefreshRuntime from '/@react-refresh'
+  RefreshRuntime.injectIntoGlobalHook(window)
+  window.$RefreshReg$ = () => {}
+  window.$RefreshSig$ = () => (type) => type
+  window.__vite_plugin_react_preamble_installed__ = true
+</script>`
+
+const viteClient = `
+<script type="module" src="/@vite/client"></script>`
+
+async function prerenderPlugin(): Promise<Plugin> {
+  const modulePath = './src/entry-server.tsx'
+  const script = '<script type="module" src="/src/entry-client.tsx"></script>'
+
+  return {
+    name: 'prerender',
+    enforce: 'pre',
+
+    config() {
+      return {
+        build: {
+          rollupOptions: {
+            input: ['a.html', 'b.html'],
+          },
+        },
+      }
+    },
+
+    async transformIndexHtml(html, { server, path }) {
+      if (server) {
+        const module = await server?.ssrLoadModule(modulePath, { fixStacktrace: true })
+        if (!module) throw new Error('module not found')
+        const { render } = module
+        if (!render) throw new Error('render export not found')
+
+        html = await render('/')
+        html = html.replace('</head>', reactPreamble + viteClient + '</head>')
+        html = html.replace('</body>', script + '</body>')
+      }
+
+      return html
+    },
+
+    resolveId(source, importer, options) {
+      switch (source) {
+        case 'a.html':
+        case 'b.html':
+          return { id: source }
+
+        default:
+          return this.resolve(source, importer, options)
+      }
+    },
+
+    async load(id) {
+      // console.log('load', id)
+      switch (id) {
+        case 'a.html':
+        case 'b.html': {
+          globalThis.React ??= await import('react')
+          // const url = pathToFileURL(path.resolve(__dirname, modulePath)).toString()
+          // const { render } = await import(url)
+          const { render } = await import('./src/entry-server.tsx')
+          const html = await render('/')
+          return html.replace('</body>', script + '</body>')
+        }
+      }
+    },
+  }
+}
