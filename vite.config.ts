@@ -5,6 +5,7 @@ import { config } from 'dotenv'
 // import path from 'node:path'
 // import { fileURLToPath, pathToFileURL } from 'node:url'
 import { defineConfig, type Plugin } from 'vite'
+import { sri } from 'vite-plugin-sri3'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { parseEnv } from './server/env'
 
@@ -59,6 +60,7 @@ export default defineConfig(({ mode }) => {
               ],
               injectClientScript: false,
             }),
+          // sri(),
         ],
         server: {
           port: 9999,
@@ -94,7 +96,7 @@ async function prerenderPlugin(): Promise<Plugin> {
       return {
         build: {
           rollupOptions: {
-            input: ['a.html', 'b.html'],
+            input: ['index.html', 'b.html'],
           },
         },
       }
@@ -116,8 +118,9 @@ async function prerenderPlugin(): Promise<Plugin> {
     },
 
     resolveId(source, importer, options) {
+      // console.log('resolveId', source)
       switch (source) {
-        case 'a.html':
+        case 'index.html':
         case 'b.html':
           return { id: source }
 
@@ -129,7 +132,7 @@ async function prerenderPlugin(): Promise<Plugin> {
     async load(id) {
       // console.log('load', id)
       switch (id) {
-        case 'a.html':
+        case 'index.html':
         case 'b.html': {
           globalThis.React ??= await import('react')
           // const url = pathToFileURL(path.resolve(__dirname, modulePath)).toString()

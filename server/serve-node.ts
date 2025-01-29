@@ -6,7 +6,7 @@ import app from './hono'
 
 app.use(compress())
 app.use('*', serveStatic({ root: './public' }))
-app.use('*', serveStatic({ path: './public/index.html' }))
+// app.use('*', serveStatic({ path: './public/index.html' }))
 
 serve(
   {

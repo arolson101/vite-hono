@@ -119,6 +119,9 @@ importers:
       vite:
         specifier: ^6.0.7
         version: 6.0.11(@types/node@22.10.10)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
+      vite-plugin-sri3:
+        specifier: ^1.0.6
+        version: 1.0.6(vite@6.0.11(@types/node@22.10.10)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.7.3)(vite@6.0.11(@types/node@22.10.10)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
@@ -2016,6 +2019,12 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
+  vite-plugin-sri3@1.0.6:
+    resolution: {integrity: sha512-jwFl03F63lPlC3exrzV8x+U2KwhOC9pyez5TFuTGZ0Y/pxcr9Di9oULSwA72myK+E7uTtvdjEYDqVjL37gFQGw==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      vite: ^2 || ^3 || ^4 || ^5 || ^6
+
   vite-tsconfig-paths@5.1.4:
     resolution: {integrity: sha512-cYj0LRuLV2c2sMqhqhGpaO3LretdtMn/BVX4cPLanIZuwwrkVl+lK84E/miEXkCHWXuq65rhNN4rXsBcOB3S4w==}
     peerDependencies:
@@ -3884,6 +3893,10 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
+
+  vite-plugin-sri3@1.0.6(vite@6.0.11(@types/node@22.10.10)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)):
+    dependencies:
+      vite: 6.0.11(@types/node@22.10.10)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
 
   vite-tsconfig-paths@5.1.4(typescript@5.7.3)(vite@6.0.11(@types/node@22.10.10)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)):
     dependencies:
