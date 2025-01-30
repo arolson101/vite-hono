@@ -6,6 +6,7 @@
     "moduleResolution": "bundler",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowJs": true,
     "importHelpers": true,
     "esModuleInterop": true,
     "strict": true,

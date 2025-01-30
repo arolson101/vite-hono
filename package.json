@@ -7,6 +7,8 @@
     "build": "pnpm run build.client && pnpm run build.server",
     "build.client": "vite build --mode production",
     "build.server": "vite build --mode production --ssr",
+    "build.prerender": "tsx src/prerender.ts",
+    "serve": "pnpx serve dist/public",
     "depcheck": "depcheck --ignores=\"@trivago/prettier-plugin-*,prettier-plugin-*,babel-plugin-*\"",
     "dev": "vite dev --port 9999",
     "format": "prettier --write .",
