@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm typecheck && pnpm lint && pnpm build:client && pnpm build:server",
-    "build:client": "vite build --mode client",
+    "build:client": "tsx server/prerender.ts",
     "build:server": "tsup-node",
     "depcheck": "depcheck --ignores=\"@trivago/prettier-plugin-*,prettier-plugin-*,babel-plugin-*\"",
     "dev": "vite",

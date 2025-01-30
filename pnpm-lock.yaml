@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   hono@4.6.18:
-    hash: dg3nuluejcybueptbby42ms2ce
+    hash: 8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed
     path: patches/hono@4.6.18.patch
 
 importers:
@@ -15,10 +15,10 @@ importers:
     dependencies:
       hono:
         specifier: ^4.6.18
-        version: 4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce)
+        version: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
       hono-pino:
         specifier: ^0.7.0
-        version: 0.7.0(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))(pino@9.6.0)
+        version: 0.7.0(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))(pino@9.6.0)
       pino:
         specifier: ^9.6.0
         version: 9.6.0
@@ -33,7 +33,7 @@ importers:
         version: 19.0.0(react@19.0.0)
       stoker:
         specifier: ^1.4.2
-        version: 1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))(openapi3-ts@4.4.0)
+        version: 1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))(openapi3-ts@4.4.0)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -43,13 +43,13 @@ importers:
         version: 9.19.0
       '@hono/node-server':
         specifier: ^1.13.7
-        version: 1.13.7(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))
+        version: 1.13.7(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))
       '@hono/vite-dev-server':
         specifier: ^0.18.1
-        version: 0.18.1(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))
+        version: 0.18.1(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))
       '@hono/zod-validator':
         specifier: ^0.4.2
-        version: 0.4.2(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))(zod@3.24.1)
+        version: 0.4.2(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))(zod@3.24.1)
       '@t3-oss/env-core':
         specifier: ^0.11.1
         version: 0.11.1(typescript@5.7.3)(zod@3.24.1)
@@ -2503,19 +2503,19 @@ snapshots:
       '@eslint/core': 0.10.0
       levn: 0.4.1
 
-  '@hono/node-server@1.13.7(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))':
+  '@hono/node-server@1.13.7(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))':
     dependencies:
-      hono: 4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce)
+      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
 
-  '@hono/vite-dev-server@0.18.1(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))':
+  '@hono/vite-dev-server@0.18.1(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))':
     dependencies:
-      '@hono/node-server': 1.13.7(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))
-      hono: 4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce)
+      '@hono/node-server': 1.13.7(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))
+      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
       minimatch: 9.0.5
 
-  '@hono/zod-validator@0.4.2(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))(zod@3.24.1)':
+  '@hono/zod-validator@0.4.2(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))(zod@3.24.1)':
     dependencies:
-      hono: 4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce)
+      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
       zod: 3.24.1
 
   '@humanfs/core@0.19.1': {}
@@ -3306,13 +3306,13 @@ snapshots:
     dependencies:
       parse-passwd: 1.0.0
 
-  hono-pino@0.7.0(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))(pino@9.6.0):
+  hono-pino@0.7.0(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))(pino@9.6.0):
     dependencies:
       defu: 6.1.4
-      hono: 4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce)
+      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
       pino: 9.6.0
 
-  hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce): {}
+  hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed): {}
 
   ignore@5.3.2: {}
 
@@ -3734,10 +3734,10 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  stoker@1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce))(openapi3-ts@4.4.0):
+  stoker@1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed))(openapi3-ts@4.4.0):
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.24.1)
-      hono: 4.6.18(patch_hash=dg3nuluejcybueptbby42ms2ce)
+      hono: 4.6.18(patch_hash=8274160b1976b4374d91b9263251d27d3a9fc03ef7c049a6e72b0d5394c6feed)
       openapi3-ts: 4.4.0
 
   string-width@4.2.3:

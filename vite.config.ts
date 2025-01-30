@@ -2,15 +2,10 @@ import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/node'
 import react from '@vitejs/plugin-react'
 import { config } from 'dotenv'
-// import path from 'node:path'
-// import { fileURLToPath, pathToFileURL } from 'node:url'
 import { defineConfig, type Plugin } from 'vite'
 import { sri } from 'vite-plugin-sri3'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { parseEnv } from './server/env'
-
-// const __filename = fileURLToPath(import.meta.url)
-// const __dirname = path.dirname(__filename)
 
 type ModeType = 'development' | 'client' | 'server'
 
@@ -39,7 +34,7 @@ export default defineConfig(({ mode }) => {
               plugins: ['babel-plugin-react-compiler'],
             },
           }),
-          prerenderPlugin(),
+          mode === 'development' && prerenderPlugin(),
           mode === 'development' &&
             devServer({
               env() {
@@ -60,7 +55,7 @@ export default defineConfig(({ mode }) => {
               ],
               injectClientScript: false,
             }),
-          // sri(),
+          sri(),
         ],
         server: {
           port: 9999,
@@ -92,17 +87,8 @@ async function prerenderPlugin(): Promise<Plugin> {
     name: 'prerender',
     enforce: 'pre',
 
-    config() {
-      return {
-        build: {
-          rollupOptions: {
-            input: ['index.html', 'b.html'],
-          },
-        },
-      }
-    },
-
     async transformIndexHtml(html, { server, path }) {
+      // console.log('transformIndexHtml', path)
       if (server) {
         const module = await server?.ssrLoadModule(modulePath, { fixStacktrace: true })
         if (!module) throw new Error('module not found')
@@ -115,33 +101,6 @@ async function prerenderPlugin(): Promise<Plugin> {
       }
 
       return html
-    },
-
-    resolveId(source, importer, options) {
-      // console.log('resolveId', source)
-      switch (source) {
-        case 'index.html':
-        case 'b.html':
-          return { id: source }
-
-        default:
-          return this.resolve(source, importer, options)
-      }
-    },
-
-    async load(id) {
-      // console.log('load', id)
-      switch (id) {
-        case 'index.html':
-        case 'b.html': {
-          globalThis.React ??= await import('react')
-          // const url = pathToFileURL(path.resolve(__dirname, modulePath)).toString()
-          // const { render } = await import(url)
-          const { render } = await import('./src/entry-server.tsx')
-          const html = await render('/')
-          return html.replace('</body>', script + '</body>')
-        }
-      }
     },
   }
 }
