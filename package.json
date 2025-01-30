@@ -68,6 +68,8 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "pnpm": {
-    "patchedDependencies": {}
+    "patchedDependencies": {
+      "hono": "patches/hono.patch"
+    }
   }
 }

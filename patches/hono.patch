@@ -1,0 +1,28 @@
+diff --git a/dist/helper/ssg/ssg.js b/dist/helper/ssg/ssg.js
+index 67c1ac6ff025b8284b090d1ed8c713f0a07fc3d7..30f29642ddcf21a13676a0f42813201806188a40 100644
+--- a/dist/helper/ssg/ssg.js
++++ b/dist/helper/ssg/ssg.js
+@@ -11,7 +11,7 @@ var generateFilePath = (routePath, outDir, mimeType, extensionMap) => {
+   if (routePath.endsWith(`.${extension}`)) {
+     return joinPaths(outDir, routePath);
+   }
+-  if (routePath === "/") {
++  if (routePath === "/" || routePath === "") {
+     return joinPaths(outDir, `index.${extension}`);
+   }
+   if (routePath.endsWith("/")) {
+@@ -125,7 +125,7 @@ var fetchRoutesContent = function* (app, beforeRequestHook, afterResponseHook, c
+             for (const param of forGetInfoURLRequest.ssgParams) {
+               yield new Promise(async (resolveReq, rejectReq) => {
+                 try {
+-                  const replacedUrlParam = replaceUrlParam(route.path, param);
++                  const replacedUrlParam = replaceUrlParam(route.path, param).replace('*', '');
+                   let response = await pool.run(
+                     () => app.request(replacedUrlParam, requestInit, {
+                       [SSG_CONTEXT]: true
+diff --git a/perf-measures/bundle-check/generated/.gitkeep b/perf-measures/bundle-check/generated/.gitkeep
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000
+diff --git a/perf-measures/type-check/generated/.gitkeep b/perf-measures/type-check/generated/.gitkeep
+deleted file mode 100644
+index e69de29bb2d1d6434b8b29ae775ad8c2e48c5391..0000000000000000000000000000000000000000

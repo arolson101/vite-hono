@@ -4,25 +4,30 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  hono:
+    hash: ifdgape3dsdicd7lhbyax23rzy
+    path: patches/hono.patch
+
 importers:
 
   .:
     dependencies:
       '@ssrx/react':
         specifier: ^0.4.1
-        version: 0.4.1(hono@4.6.19)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+        version: 0.4.1(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       '@ssrx/renderer':
         specifier: ^0.5.1
-        version: 0.5.1(hono@4.6.19)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+        version: 0.5.1(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       '@tanstack/react-router':
         specifier: '=1.97.14'
         version: 1.97.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       hono:
         specifier: ^4.6.19
-        version: 4.6.19
+        version: 4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy)
       hono-pino:
         specifier: ^0.7.0
-        version: 0.7.0(hono@4.6.19)(pino@9.6.0)
+        version: 0.7.0(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(pino@9.6.0)
       pino:
         specifier: ^9.6.0
         version: 9.6.0
@@ -37,7 +42,7 @@ importers:
         version: 19.0.0(react@19.0.0)
       stoker:
         specifier: ^1.4.2
-        version: 1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.19)(openapi3-ts@4.4.0)
+        version: 1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(openapi3-ts@4.4.0)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
@@ -47,19 +52,19 @@ importers:
         version: 9.19.0
       '@hono/node-server':
         specifier: ^1.13.7
-        version: 1.13.7(hono@4.6.19)
+        version: 1.13.7(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))
       '@hono/vite-dev-server':
         specifier: ^0.18.1
-        version: 0.18.1(hono@4.6.19)
+        version: 0.18.1(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))
       '@hono/zod-validator':
         specifier: ^0.4.2
-        version: 0.4.2(hono@4.6.19)(zod@3.24.1)
+        version: 0.4.2(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(zod@3.24.1)
       '@ssrx/plugin-tanstack-router':
         specifier: ^0.4.2
-        version: 0.4.2(@tanstack/react-router@1.97.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(hono@4.6.19)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+        version: 0.4.2(@tanstack/react-router@1.97.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       '@ssrx/vite':
         specifier: ^0.7.2
-        version: 0.7.2(hono@4.6.19)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+        version: 0.7.2(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       '@t3-oss/env-core':
         specifier: ^0.11.1
         version: 0.11.1(typescript@5.7.3)(zod@3.24.1)
@@ -2762,19 +2767,19 @@ snapshots:
       '@eslint/core': 0.10.0
       levn: 0.4.1
 
-  '@hono/node-server@1.13.7(hono@4.6.19)':
+  '@hono/node-server@1.13.7(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))':
     dependencies:
-      hono: 4.6.19
+      hono: 4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy)
 
-  '@hono/vite-dev-server@0.18.1(hono@4.6.19)':
+  '@hono/vite-dev-server@0.18.1(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))':
     dependencies:
-      '@hono/node-server': 1.13.7(hono@4.6.19)
-      hono: 4.6.19
+      '@hono/node-server': 1.13.7(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))
+      hono: 4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy)
       minimatch: 9.0.5
 
-  '@hono/zod-validator@0.4.2(hono@4.6.19)(zod@3.24.1)':
+  '@hono/zod-validator@0.4.2(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(zod@3.24.1)':
     dependencies:
-      hono: 4.6.19
+      hono: 4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy)
       zod: 3.24.1
 
   '@humanfs/core@0.19.1': {}
@@ -2900,9 +2905,9 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.32.0':
     optional: true
 
-  '@ssrx/plugin-tanstack-router@0.4.2(@tanstack/react-router@1.97.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(hono@4.6.19)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))':
+  '@ssrx/plugin-tanstack-router@0.4.2(@tanstack/react-router@1.97.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))':
     dependencies:
-      '@ssrx/renderer': 0.5.1(hono@4.6.19)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+      '@ssrx/renderer': 0.5.1(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       '@tanstack/react-cross-context': 1.57.6(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@tanstack/react-router': 1.97.14(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       jsesc: 3.0.2
@@ -2915,11 +2920,11 @@ snapshots:
       - supports-color
       - vite
 
-  '@ssrx/react@0.4.1(hono@4.6.19)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))':
+  '@ssrx/react@0.4.1(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))':
     dependencies:
-      '@ssrx/renderer': 0.5.1(hono@4.6.19)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+      '@ssrx/renderer': 0.5.1(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       '@ssrx/streaming': 0.3.1
-      '@ssrx/vite': 0.7.2(hono@4.6.19)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+      '@ssrx/vite': 0.7.2(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       isbot-fast: 1.2.0
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
@@ -2929,10 +2934,10 @@ snapshots:
       - supports-color
       - vite
 
-  '@ssrx/renderer@0.5.1(hono@4.6.19)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))':
+  '@ssrx/renderer@0.5.1(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))':
     dependencies:
       '@ssrx/streaming': 0.3.1
-      '@ssrx/vite': 0.7.2(hono@4.6.19)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
+      '@ssrx/vite': 0.7.2(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
       deepmerge: 4.3.1
       vite-env-only: 3.0.3(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
     transitivePeerDependencies:
@@ -2942,9 +2947,9 @@ snapshots:
 
   '@ssrx/streaming@0.3.1': {}
 
-  '@ssrx/vite@0.7.2(hono@4.6.19)(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))':
+  '@ssrx/vite@0.7.2(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))':
     dependencies:
-      '@hono/node-server': 1.13.7(hono@4.6.19)
+      '@hono/node-server': 1.13.7(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))
       radix3: 1.1.2
       vite: 6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0)
       vite-env-only: 3.0.3(vite@6.0.11(@types/node@22.10.10)(jiti@1.21.7)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))
@@ -3698,13 +3703,13 @@ snapshots:
     dependencies:
       hermes-estree: 0.25.1
 
-  hono-pino@0.7.0(hono@4.6.19)(pino@9.6.0):
+  hono-pino@0.7.0(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(pino@9.6.0):
     dependencies:
       defu: 6.1.4
-      hono: 4.6.19
+      hono: 4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy)
       pino: 9.6.0
 
-  hono@4.6.19: {}
+  hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy): {}
 
   html-minifier-terser@6.1.0:
     dependencies:
@@ -4190,10 +4195,10 @@ snapshots:
 
   split2@4.2.0: {}
 
-  stoker@1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.19)(openapi3-ts@4.4.0):
+  stoker@1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy))(openapi3-ts@4.4.0):
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.24.1)
-      hono: 4.6.19
+      hono: 4.6.19(patch_hash=ifdgape3dsdicd7lhbyax23rzy)
       openapi3-ts: 4.4.0
 
   string-width@4.2.3:
