@@ -13,6 +13,9 @@ importers:
 
   .:
     dependencies:
+      '@hono/vite-ssg':
+        specifier: ^0.1.1
+        version: 0.1.1(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))
       '@tanstack/react-router':
         specifier: ^1.98.4
         version: 1.98.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -25,6 +28,9 @@ importers:
       hono-pino:
         specifier: ^0.7.0
         version: 0.7.0(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(pino@9.6.0)
+      node:
+        specifier: link:@hono/vite-build/node
+        version: link:@hono/vite-build/node
       pino:
         specifier: ^9.6.0
         version: 9.6.0
@@ -788,6 +794,12 @@ packages:
         optional: true
       wrangler:
         optional: true
+
+  '@hono/vite-ssg@0.1.1':
+    resolution: {integrity: sha512-9n+qrLCyb2/SniAiA0RfaW3+8RmKN4DONYheFkVV0uIQE6NTN1tAVAsX6st1iAVe3hkb0rzVf14iIopt/9LqFw==}
+    engines: {node: '>=18.14.1'}
+    peerDependencies:
+      hono: '>=4.0.0'
 
   '@hono/zod-validator@0.4.2':
     resolution: {integrity: sha512-1rrlBg+EpDPhzOV4hT9pxr5+xDVmKuz6YJl+la7VCwK6ass5ldyKm5fD+umJdV2zhHD6jROoCCv8NbTwyfhT0g==}
@@ -4331,6 +4343,10 @@ snapshots:
       '@hono/node-server': 1.13.7(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))
       hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
       minimatch: 9.0.5
+
+  '@hono/vite-ssg@0.1.1(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))':
+    dependencies:
+      hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
 
   '@hono/zod-validator@0.4.2(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1)':
     dependencies:
