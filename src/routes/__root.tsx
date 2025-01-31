@@ -1,9 +1,7 @@
-import { Meta } from '@ssrx/plugin-tanstack-router'
 import type { ErrorComponentProps } from '@tanstack/react-router'
-import { createRootRouteWithContext, ErrorComponent, Link, Outlet, ScrollRestoration } from '@tanstack/react-router'
+import { createRootRouteWithContext, ErrorComponent, Link, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import type { RootRouterContext } from '~/router.ts'
-import './__root.css'
 
 export const Route = createRootRouteWithContext<RootRouterContext>()({
   component: RootComponent,
@@ -16,8 +14,7 @@ function RootComponent() {
       <head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-
-        <Meta />
+        <link rel='stylesheet' href='/src/routes/__root.css' />
       </head>
 
       <body>
@@ -44,8 +41,6 @@ function RootComponent() {
         <div className='root-content'>
           <Outlet />
         </div>
-
-        <ScrollRestoration />
 
         <TanStackRouterDevtools position='bottom-right' />
       </body>

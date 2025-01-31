@@ -1,12 +1,14 @@
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono } from 'hono'
+import { logger } from 'hono/logger'
 import { onlySSG, ssgParams } from 'hono/ssg'
 import type { RedirectStatusCode } from 'hono/utils/http-status'
-import { serverHandler } from './App.tsx'
-import { createRouter } from './router.tsx'
+import { render } from './entry-server.tsx'
 
 const server = new Hono()
+  .use(logger())
+
   /**
    * These two serveStatic's will be used to serve production assets.
    * Vite dev server handles assets during development.
@@ -21,16 +23,11 @@ const server = new Hono()
     }),
     async c => {
       try {
-        const router = createRouter()
-
-        const { stream, statusCode } = await serverHandler({
-          req: c.req.raw,
-          renderProps: { router },
-        })
+        const { router, stream, statusCode } = await render(c.req.path, c.req.raw.signal)
 
         // Handle redirects
         if (router.state.redirect) {
-          return c.redirect(router.state.redirect.href, router.state.redirect.code as RedirectStatusCode)
+          return c.redirect(router.state.redirect.href, router.state.redirect.statusCode as RedirectStatusCode)
         }
 
         let status = statusCode()
@@ -44,7 +41,7 @@ const server = new Hono()
          * In development, pass the error back to the vite dev server to display in the
          * vite error overlay
          */
-        // if (import.meta.env.DEV) return err
+        if (import.meta.env.DEV) return err as void
 
         throw err
       }
