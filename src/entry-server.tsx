@@ -4,11 +4,14 @@ import ReactDOMServer from 'react-dom/server'
 // @ts-expect-error https://github.com/facebook/react/issues/26906
 import ReactDOMServerBrowser from 'react-dom/server.browser'
 import { createRouter } from './router'
+import { attachRouterServerSsrUtils } from './ssr-server'
 
 const renderToReadableStream = ReactDOMServer.renderToReadableStream ?? ReactDOMServerBrowser.renderToReadableStream
 
 export async function render(url: string, signal: AbortSignal) {
   const router = createRouter()
+
+  attachRouterServerSsrUtils(router, undefined)
 
   const memoryHistory = createMemoryHistory({
     initialEntries: [url],

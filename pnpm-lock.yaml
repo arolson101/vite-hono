@@ -16,18 +16,30 @@ importers:
       '@hono/vite-ssg':
         specifier: ^0.1.1
         version: 0.1.1(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))
+      '@std/streams':
+        specifier: npm:@jsr/std__streams@^1.0.9
+        version: '@jsr/std__streams@1.0.9'
       '@tanstack/react-router':
         specifier: ^1.98.4
         version: 1.98.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@tanstack/start':
         specifier: ^1.98.5
         version: 1.98.5(@types/node@22.12.0)(db0@0.2.3)(ioredis@5.4.2)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(vite@6.0.11(@types/node@22.12.0)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.37.0)(tsx@4.19.2)(yaml@2.7.0))(yaml@2.7.0)
+      '@tanstack/start-client':
+        specifier: ^1.98.4
+        version: 1.98.4(@types/node@22.12.0)(db0@0.2.3)(ioredis@5.4.2)(jiti@2.4.2)(lightningcss@1.29.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(terser@5.37.0)(tsx@4.19.2)(typescript@5.7.3)(yaml@2.7.0)
+      '@ungap/with-resolvers':
+        specifier: ^0.1.0
+        version: 0.1.0
       hono:
         specifier: ^4.6.19
         version: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
       hono-pino:
         specifier: ^0.7.0
         version: 0.7.0(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(pino@9.6.0)
+      jsesc:
+        specifier: ^3.1.0
+        version: 3.1.0
       node:
         specifier: link:@hono/vite-build/node
         version: link:@hono/vite-build/node
@@ -80,6 +92,9 @@ importers:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^5.2.2
         version: 5.2.2(prettier@3.4.2)
+      '@types/jsesc':
+        specifier: ^3.0.3
+        version: 3.0.3
       '@types/node':
         specifier: ^22.12.0
         version: 22.12.0
@@ -859,6 +874,12 @@ packages:
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
 
+  '@jsr/std__bytes@1.0.5':
+    resolution: {integrity: sha512-jcyXQSy5zAh2/6NLMWUkhJuQ0HihY5RwWF5RvpZyEmpmBaokkTwPkev0sqHzNJJvNusDUMznVBIclTT9augCkg==, tarball: https://npm.jsr.io/~/11/@jsr/std__bytes/1.0.5.tgz}
+
+  '@jsr/std__streams@1.0.9':
+    resolution: {integrity: sha512-nPkEijnOPwLQt6ZtvOajE6F2hCmRILaq0kR6I0JFVvxSsvhdeyFMGc8F4DqypCpfq/U+8umLcE0RNMcYdx4NlQ==, tarball: https://npm.jsr.io/~/11/@jsr/std__streams/1.0.9.tgz}
+
   '@mapbox/node-pre-gyp@2.0.0':
     resolution: {integrity: sha512-llMXd39jtP0HpQLVI37Bf1m2ADlEb35GYSh1SDSLsBhR+5iCxiNGlT31yqbNtVHygHAtMy6dWFERpU2JgufhPg==}
     engines: {node: '>=18'}
@@ -1458,6 +1479,9 @@ packages:
   '@types/http-proxy@1.17.15':
     resolution: {integrity: sha512-25g5atgiVNTIv0LBDTg1H74Hvayx0ajtJPLLcYE3whFv75J0pWNtOBzaXJQgDTmrX1bx5U9YC2w/n65BN1HwRQ==}
 
+  '@types/jsesc@3.0.3':
+    resolution: {integrity: sha512-YZZ9ZOAiiSVC6KApWd/fTCDTdTOOMiRU4Lq3/VSmXNPse8IvCVOn5kYRRLu900Ub1lTPurVZFI5unEqLDJR7wg==}
+
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
@@ -1524,6 +1548,9 @@ packages:
   '@typescript-eslint/visitor-keys@8.22.0':
     resolution: {integrity: sha512-AWpYAXnUgvLNabGTy3uBylkgZoosva/miNd1I8Bz3SjotmQPbVqhO4Cczo8AsZ44XVErEBPr/CRSgaj8sG7g0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@ungap/with-resolvers@0.1.0':
+    resolution: {integrity: sha512-g7f0IkJdPW2xhY7H4iE72DAsIyfuwEFc6JWc2tYFwKDMWWAF699vGjrM348cwQuOXgHpe1gWFe+Eiyjx/ewvvw==}
 
   '@vercel/nft@0.27.10':
     resolution: {integrity: sha512-zbaF9Wp/NsZtKLE4uVmL3FyfFwlpDyuymQM1kPbeT0mVOHKDQQNjnnfslB3REg3oZprmNFJuh3pkHBk2qAaizg==}
@@ -4403,6 +4430,12 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
+  '@jsr/std__bytes@1.0.5': {}
+
+  '@jsr/std__streams@1.0.9':
+    dependencies:
+      '@jsr/std__bytes': 1.0.5
+
   '@mapbox/node-pre-gyp@2.0.0':
     dependencies:
       consola: 3.4.0
@@ -5477,6 +5510,8 @@ snapshots:
     dependencies:
       '@types/node': 22.12.0
 
+  '@types/jsesc@3.0.3': {}
+
   '@types/json-schema@7.0.15': {}
 
   '@types/micromatch@4.0.9':
@@ -5573,6 +5608,8 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.22.0
       eslint-visitor-keys: 4.2.0
+
+  '@ungap/with-resolvers@0.1.0': {}
 
   '@vercel/nft@0.27.10(rollup@4.32.1)':
     dependencies:

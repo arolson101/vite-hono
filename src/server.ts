@@ -1,6 +1,10 @@
 import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
+import { mergeReadableStreams } from '@std/streams/merge-readable-streams'
+import '@ungap/with-resolvers'
+import viteReact from '@vitejs/plugin-react'
 import { Hono } from 'hono'
+import { env } from 'hono/adapter'
 import { logger } from 'hono/logger'
 import { onlySSG, ssgParams } from 'hono/ssg'
 import type { RedirectStatusCode } from 'hono/utils/http-status'
@@ -35,7 +39,25 @@ const server = new Hono()
         // Handle 404 errors
         if (router.hasNotFoundMatch() && status !== 500) status = 404
 
-        return new Response(stream, { status, headers: { 'Content-Type': 'text/html' } })
+        async function getInjectedScript() {
+          const clientScript = `<script type='module' src='/src/entry-client.tsx'></script>`
+
+          const { NODE_ENV } = env(c)
+          if (NODE_ENV === 'development') {
+            const preambleCode = `<script type="module">${viteReact.preambleCode.replace('__BASE__', '/')}</script>`
+            const viteClient = `<script type="module" src="/@vite/client"></script>`
+            return preambleCode + viteClient + clientScript
+          } else {
+            return clientScript
+          }
+        }
+
+        const injectedItems = promisesToStream(...router.serverSsr!.injectedHtml, getInjectedScript())
+
+        return new Response(mergeReadableStreams(stream, injectedItems), {
+          status,
+          headers: { 'Content-Type': 'text/html' },
+        })
       } catch (err) {
         /**
          * In development, pass the error back to the vite dev server to display in the
@@ -47,6 +69,21 @@ const server = new Hono()
       }
     },
   )
+
+function promisesToStream(...promises: Promise<string>[]) {
+  return new ReadableStream({
+    start(controller) {
+      promises.forEach(promise => {
+        promise.then(value => {
+          controller.enqueue(new TextEncoder().encode(value))
+        })
+      })
+      Promise.allSettled(promises).then(() => {
+        controller.close()
+      })
+    },
+  })
+}
 
 /**
  * In development, vite handles starting up the server
