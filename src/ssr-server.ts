@@ -1,3 +1,4 @@
+// https://github.com/TanStack/router/blob/main/packages/start-server/src/ssr-server.ts
 import {
   TSR_DEFERRED_PROMISE,
   defer,
@@ -68,7 +69,7 @@ export function attachRouterServerSsrUtils(
       return router.serverSsr!.injectHtml(async () => {
         const script = await getScript()
         return `<script class='tsr-once'>${script}${
-          process.env.NODE_ENV === 'development' && (opts?.logScript ?? true)
+          process.env['NODE_ENV'] === 'development' && (opts?.logScript ?? false)
             ? `; console.info(\`Injected From Server:
 ${jsesc(script, { quotes: 'backtick' })}\`)`
             : ''

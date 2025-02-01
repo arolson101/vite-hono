@@ -5,3 +5,4 @@ node_modules
 drizzle/meta
 src-tauri/gen
 src-tauri/target
+ssr-server.ts
