@@ -11,7 +11,7 @@ import { createRouter } from './router.tsx'
 import server from './server.ts'
 
 const serverSsr = new Hono({ strict: false })
-  .use(except(() => import.meta.env.PROD, logger()))
+  .use(except(isSSGContext, logger()))
   .route('/', server)
 
   .get(
@@ -19,8 +19,7 @@ const serverSsr = new Hono({ strict: false })
     ssgParams(() => createRouter().flatRoutes.map(route => ({ '*': route.fullPath.substring(1) }))),
     async c => {
       try {
-
-        // this happens during SSG; prevent a '.txt' file from being created
+        // this happens during SSG (I don't know why); prevent a '.txt' file from being created
         if (c.req.path.includes('*')) {
           return c.notFound()
         }
@@ -39,6 +38,7 @@ const serverSsr = new Hono({ strict: false })
         if (router.hasNotFoundMatch() && status !== 500) status = 404
 
         async function getInjectedScript() {
+          const clientStyle = `<link rel='stylesheet' href='/src/global.css' />`
           const clientScript = `<script type='module' src='/src/entry-client.tsx'></script>`
 
           const { NODE_ENV } = env(c)
@@ -51,9 +51,9 @@ const serverSsr = new Hono({ strict: false })
   window.__vite_plugin_react_preamble_installed__ = true
 </script>`
             const viteClient = `<script type="module" src="/@vite/client"></script>`
-            return preambleCode + viteClient + clientScript
+            return clientStyle + preambleCode + viteClient + clientScript
           } else {
-            return clientScript
+            return clientStyle + clientScript
           }
         }
 
