@@ -25,7 +25,7 @@ export default defineConfig(({ mode }) => {
           entryContentAfterHooks: [
             async appName => `import { serve } from '@hono/node-server'
 serve({ fetch: ${appName}.fetch, port: ${port} }, ({ port }) => {
-  console.log(\`🚀 Server running at http://localhost:\${port}\`)
+  console.log(\`🔥 Server running at http://localhost:\${port}\`)
 })`,
           ],
         }),
