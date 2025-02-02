@@ -9,8 +9,35 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 import ssgBuild from './src/lib/hono/plugins/ssg'
 
 export default defineConfig(({ mode }) => {
-  const port = 9999
+  // server is a seperate build mode because it pollutes the config- prevents css
+  // from being written & changes output dir for ssg
+  if (mode === 'server') {
+    const port = 9999
+    return {
+      mode: 'production',
+      plugins: [
+        tsconfigPaths(),
+        build({
+          entry: 'src/server-prod.ts',
+          minify: false,
+          output: 'server.js',
+          port,
+          entryContentAfterHooks: [
+            async appName => `import { serve } from '@hono/node-server'
+serve({ fetch: ${appName}.fetch, port: ${port} }, () => {
+  console.log(\`🚀 Server running at http://localhost:${port}\`)
+})`,
+          ],
+        }),
+      ],
+    }
+  }
+
   return {
+    build: {
+      outDir: 'dist/public',
+      copyPublicDir: true,
+    },
     plugins: [
       tailwindcss(),
       tsconfigPaths(),
@@ -19,18 +46,6 @@ export default defineConfig(({ mode }) => {
       devServer({
         entry: 'src/server-ssr.ts',
         adapter,
-      }),
-      build({
-        entry: 'src/server.ts',
-        minify: false,
-        output: 'server.js',
-        port,
-        entryContentAfterHooks: [
-          async appName => `import { serve } from '@hono/node-server'
-serve({ fetch: ${appName}.fetch, port: ${port} }, () => {
-  console.log(\`🚀 Server running at http://localhost:${port}\`)
-})`,
-        ],
       }),
       ssgBuild({
         entry: 'src/server-ssr.ts',

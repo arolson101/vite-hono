@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build --ssr",
+    "build": "vite build --mode server && vite build",
     "depcheck": "depcheck --ignores=\"@trivago/prettier-plugin-*,prettier-plugin-*,babel-plugin-*\"",
     "dev": "vite dev --port 9999",
     "format": "prettier --write .",
