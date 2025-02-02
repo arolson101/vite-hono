@@ -1,16 +1,16 @@
-import { serve } from '@hono/node-server'
 import { serveStatic } from '@hono/node-server/serve-static'
 import { mergeReadableStreams } from '@std/streams/merge-readable-streams'
 import '@ungap/with-resolvers'
-import viteReact from '@vitejs/plugin-react'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
+import { except } from 'hono/combine'
 import { logger } from 'hono/logger'
 import { onlySSG, ssgParams } from 'hono/ssg'
 import type { RedirectStatusCode } from 'hono/utils/http-status'
 import { render } from './entry-server.tsx'
+import { createRouter } from './router.tsx'
 
-const server = new Hono()
+const server = new Hono({ strict: false })
   .use(logger())
 
   /**
@@ -22,9 +22,8 @@ const server = new Hono()
 
   .get(
     '*',
-    ssgParams(async () => {
-      return ['', 'lazy-component', 'redirect', 'admin', 'admin/members'].map(route => ({ '*': route }))
-    }),
+    except(() => import.meta.env.DEV, onlySSG()),
+    ssgParams(() => createRouter().flatRoutes.map(route => ({ '*': route.fullPath.substring(1) }))),
     async c => {
       try {
         const { router, stream, statusCode } = await render(c.req.path, c.req.raw.signal)
@@ -44,7 +43,13 @@ const server = new Hono()
 
           const { NODE_ENV } = env(c)
           if (NODE_ENV === 'development') {
-            const preambleCode = `<script type="module">${viteReact.preambleCode.replace('__BASE__', '/')}</script>`
+            const preambleCode = `<script type="module">
+  import RefreshRuntime from '/@react-refresh'
+  RefreshRuntime.injectIntoGlobalHook(window)
+  window.$RefreshReg$ = () => {}
+  window.$RefreshSig$ = () => (type) => type
+  window.__vite_plugin_react_preamble_installed__ = true
+</script>`
             const viteClient = `<script type="module" src="/@vite/client"></script>`
             return preambleCode + viteClient + clientScript
           } else {
@@ -71,6 +76,7 @@ const server = new Hono()
   )
 
 function promisesToStream(...promises: Promise<string>[]) {
+  let cancelled = false
   return new ReadableStream({
     start(controller) {
       promises.forEach(promise => {
@@ -79,27 +85,14 @@ function promisesToStream(...promises: Promise<string>[]) {
         })
       })
       Promise.allSettled(promises).then(() => {
+        if (cancelled) return
         controller.close()
       })
     },
+    cancel() {
+      cancelled = true
+    },
   })
-}
-
-/**
- * In development, vite handles starting up the server
- * In production, we need to start the server ourselves
- */
-if (import.meta.env.PROD && !process.env['SSG']) {
-  const port = Number(process.env['PORT'] || 3000)
-  serve(
-    {
-      port,
-      fetch: server.fetch,
-    },
-    () => {
-      console.log(`🚀 Server running at http://localhost:${port}`)
-    },
-  )
 }
 
 export default server

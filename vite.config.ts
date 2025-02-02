@@ -9,6 +9,7 @@ import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({ mode }) => {
+  const port = 9999
   return {
     plugins: [
       tailwindcss(),
@@ -19,26 +20,31 @@ export default defineConfig(({ mode }) => {
         entry: 'src/server.ts',
         adapter,
       }),
-      // mode !== 'client' && [
-      //   build({
-      //     entry: 'src/server.ts',
-      //     minify: false,
-      //     output: 'server.js',
-      //   }),
-      //   ssg({
-      //     entry: 'src/server.ts',
-      //   }),
-      //   {
-      //     name: 'ssg-exiter',
-      //     apply: 'build',
-      //     enforce: 'post',
-      //     async writeBundle() {
-      //       await new Promise(resolve => setTimeout(resolve, 1))
-      //       console.log('Forcing exit because SSG build hangs vite')
-      //       process.exit(0)
-      //     },
-      //   },
-      // ],
+      build({
+        entry: 'src/server.ts',
+        minify: false,
+        output: 'server.js',
+        port,
+        entryContentAfterHooks: [
+          async appName => `import { serve } from '@hono/node-server'
+serve({ fetch: ${appName}.fetch, port: ${port} }, () => {
+  console.log(\`🚀 Server running at http://localhost:${port}\`)
+})`,
+        ],
+      }),
+      ssg({
+        entry: 'src/server.ts',
+      }),
+      {
+        name: 'ssg-exiter',
+        apply: 'build',
+        enforce: 'post',
+        async writeBundle() {
+          await new Promise(resolve => setTimeout(resolve, 1))
+          console.log('Forcing exit because SSG build hangs vite')
+          process.exit(0)
+        },
+      },
     ],
   }
 })

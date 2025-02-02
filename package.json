@@ -4,10 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm run build.client && pnpm run build.server",
-    "build.client": "vite build --mode client && vite build",
-    "build.prerender": "tsx src/prerender.ts",
-    "build.server": "vite build --mode production --ssr",
+    "build": "vite build --ssr",
     "depcheck": "depcheck --ignores=\"@trivago/prettier-plugin-*,prettier-plugin-*,babel-plugin-*\"",
     "dev": "vite dev --port 9999",
     "format": "prettier --write .",
@@ -15,7 +12,7 @@
     "lint:fix": "eslint . --fix",
     "preview": "pnpm build && pnpm start",
     "serve": "pnpx serve dist/public",
-    "start": "node dist/server.js --port 9999",
+    "start": "node dist/server.js",
     "typecheck": "tsc --noemit"
   },
   "dependencies": {
