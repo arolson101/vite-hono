@@ -17,7 +17,7 @@ export default defineConfig(({ mode }) => {
       viteReact(),
       tanStackRouterVite(),
       devServer({
-        entry: 'src/server.ts',
+        entry: 'src/server-ssr.ts',
         adapter,
       }),
       build({
@@ -33,7 +33,7 @@ serve({ fetch: ${appName}.fetch, port: ${port} }, () => {
         ],
       }),
       ssg({
-        entry: 'src/server.ts',
+        entry: 'src/server-ssr.ts',
       }),
       {
         name: 'ssg-exiter',
