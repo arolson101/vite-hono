@@ -7,10 +7,12 @@ import { createServer } from 'vite'
 
 type SSGOptions = {
   entry?: string
+  onComplete?: () => void
 }
 
 export const defaultOptions: Required<SSGOptions> = {
   entry: './src/index.tsx',
+  onComplete: () => {},
 }
 
 export const ssgBuild = (options?: SSGOptions): Plugin => {
@@ -89,6 +91,8 @@ export const ssgBuild = (options?: SSGOptions): Plugin => {
       if (!result.success) {
         throw result.error
       }
+
+      options?.onComplete?.()
     },
   }
 }
