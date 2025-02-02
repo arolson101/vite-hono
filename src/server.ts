@@ -1,8 +1,7 @@
-import { serveStatic } from '@hono/node-server/serve-static'
 import { Hono } from 'hono'
-import { except } from 'hono/combine'
-import { isSSGContext } from 'hono/ssg'
+import { compress } from 'hono/compress'
 
-const server = new Hono({ strict: false })
+const server = new Hono({ strict: false }) //
+  .use(compress())
 
 export default server
