@@ -16,7 +16,7 @@ const serverSsr = new Hono({ strict: false })
 
   .get(
     '*',
-    ssgParams(() => createRouter().flatRoutes.map(route => ({ '*': route.fullPath.substring(1) }))),
+    ssgParams(() => createRouter().flatRoutes.map(route => ({ '*': route.fullPath.substring(1) + '/' }))),
     async c => {
       try {
         // this happens during SSG (I don't know why); prevent a '.txt' file from being created
