@@ -1,12 +1,14 @@
 import { initTRPC } from '@trpc/server'
 import { z } from 'zod'
 import { type EnvVars } from '../env'
+import { AppDb } from '../types'
 
-export type HonoContext = {
+export type TRPCContext = {
   env: EnvVars
+  db: AppDb
 }
 
-const t = initTRPC.context<HonoContext>().create()
+const t = initTRPC.context<TRPCContext>().create()
 
 const publicProcedure = t.procedure
 const router = t.router
