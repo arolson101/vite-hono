@@ -1,10 +1,8 @@
-import { Hono } from 'hono'
-import { EnvVars } from './env'
-import { envMiddleware } from './middleware/env-middleware'
-import serveEmojiFavicon from './middleware/serve-emoji-favicon'
+import { createApp } from './lib/create-app'
+import api from './api'
 
-const app = new Hono<{ Bindings: EnvVars }>({ strict: false }) //
-  .use(envMiddleware)
-  .use(serveEmojiFavicon('🔥', '💧'))
+const app = createApp()
+
+app.route('/api', api)
 
 export default app

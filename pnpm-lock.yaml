@@ -16,6 +16,12 @@ importers:
       '@hono/vite-ssg':
         specifier: ^0.1.1
         version: 0.1.1(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))
+      '@hono/zod-openapi':
+        specifier: ^0.18.3
+        version: 0.18.3(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1)
+      '@scalar/hono-api-reference':
+        specifier: ^0.5.170
+        version: 0.5.170(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))
       '@std/streams':
         specifier: npm:@jsr/std__streams@^1.0.9
         version: '@jsr/std__streams@1.0.9'
@@ -34,6 +40,9 @@ importers:
       hono:
         specifier: ^4.6.19
         version: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
+      hono-openapi:
+        specifier: ^0.4.4
+        version: 0.4.4(@hono/zod-validator@0.4.2(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1))(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod-openapi@4.2.3(zod@3.24.1))(zod@3.24.1)
       hono-pino:
         specifier: ^0.7.0
         version: 0.7.0(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(pino@9.6.0)
@@ -57,10 +66,13 @@ importers:
         version: 19.0.0(react@19.0.0)
       stoker:
         specifier: ^1.4.2
-        version: 1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(openapi3-ts@4.4.0)
+        version: 1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(@hono/zod-openapi@0.18.3(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1))(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(openapi3-ts@4.4.0)
       zod:
         specifier: ^3.24.1
         version: 3.24.1
+      zod-openapi:
+        specifier: ^4.2.3
+        version: 4.2.3(zod@3.24.1)
     devDependencies:
       '@eslint/js':
         specifier: ^9.19.0
@@ -173,6 +185,10 @@ packages:
   '@ampproject/remapping@2.3.0':
     resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
     engines: {node: '>=6.0.0'}
+
+  '@apidevtools/json-schema-ref-parser@11.9.0':
+    resolution: {integrity: sha512-8Q/r5mXLa8Rfyh6r4SgEEFJgISVN5cDNFlcfSWLgFn3odzQhTfHAqzI3hMGdcROViL+8NrDNVVFQtEUrYOksDg==}
+    engines: {node: '>= 16'}
 
   '@asteasolutions/zod-to-openapi@7.3.0':
     resolution: {integrity: sha512-7tE/r1gXwMIvGnXVUdIqUhCU1RevEFC4Jk6Bussa0fk1ecbnnINkZzj1EOAJyE/M3AI25DnHT/zKQL1/FPFi8Q==}
@@ -816,6 +832,13 @@ packages:
     peerDependencies:
       hono: '>=4.0.0'
 
+  '@hono/zod-openapi@0.18.3':
+    resolution: {integrity: sha512-bNlRDODnp7P9Fs13ZPajEOt13G0XwXKfKRHMEFCphQsFiD1Y+twzHaglpNAhNcflzR1DQwHY92ZS06b4LTPbIQ==}
+    engines: {node: '>=16.0.0'}
+    peerDependencies:
+      hono: '>=4.3.6'
+      zod: 3.*
+
   '@hono/zod-validator@0.4.2':
     resolution: {integrity: sha512-1rrlBg+EpDPhzOV4hT9pxr5+xDVmKuz6YJl+la7VCwK6ass5ldyKm5fD+umJdV2zhHD6jROoCCv8NbTwyfhT0g==}
     peerDependencies:
@@ -873,6 +896,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@jsdevtools/ono@7.1.3':
+    resolution: {integrity: sha512-4JQNk+3mVzK3xh2rqd6RB4J46qUR19azEHBneZyTZM+c456qOrbbM/5xcR8huNCCcbVt7+UmizG6GuUvPvKUYg==}
 
   '@jsr/std__bytes@1.0.5':
     resolution: {integrity: sha512-jcyXQSy5zAh2/6NLMWUkhJuQ0HihY5RwWF5RvpZyEmpmBaokkTwPkev0sqHzNJJvNusDUMznVBIclTT9augCkg==, tarball: https://npm.jsr.io/~/11/@jsr/std__bytes/1.0.5.tgz}
@@ -1191,6 +1217,20 @@ packages:
     resolution: {integrity: sha512-ar80GhdZb4DgmW3myIS9nRFYcpJRSME8iqWgzH2i44u+IdrzmiXVxeFnExQ5v4JYUSpg94bWjevMG8JHf1Da5Q==}
     cpu: [x64]
     os: [win32]
+
+  '@scalar/hono-api-reference@0.5.170':
+    resolution: {integrity: sha512-WZsBHZutARsszArsn2jC8aPM1KrMtkyIJzt/Dhigr3KPaDMTVBZEmO/NILrYAMnLYkboAs7DedtSHt59D41dew==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      hono: ^4.0.0
+
+  '@scalar/openapi-types@0.1.6':
+    resolution: {integrity: sha512-V+KnESyVJqorJzEN0QFlu3tAImCHjnvPov6QcQvjfY7s0+CjrI3rRO3oVIRlXURTQrQGrnhxvK0SkXGAZ+dxvw==}
+    engines: {node: '>=18'}
+
+  '@scalar/types@0.0.29':
+    resolution: {integrity: sha512-Z5tnRVtKHV/Gx4hCPeyFsxM1Gx92KUqpZ/HhM4KexPh5StKJo6MSLSTeFXqdVM8dbsnfw+xFBoLF9yE0eEHK3Q==}
+    engines: {node: '>=18'}
 
   '@sindresorhus/merge-streams@2.3.0':
     resolution: {integrity: sha512-LtoMMhxAlorcGhmFYI+LhPgbPZCkgP6ra1YL604EeF6U98pLlQ3iWIGMdWSC+vWmPBWBNgmDBAhnAobLROJmwg==}
@@ -1552,6 +1592,9 @@ packages:
   '@ungap/with-resolvers@0.1.0':
     resolution: {integrity: sha512-g7f0IkJdPW2xhY7H4iE72DAsIyfuwEFc6JWc2tYFwKDMWWAF699vGjrM348cwQuOXgHpe1gWFe+Eiyjx/ewvvw==}
 
+  '@unhead/schema@1.11.18':
+    resolution: {integrity: sha512-a3TA/OJCRdfbFhcA3Hq24k1ZU1o9szicESrw8DZcGyQFacHnh84mVgnyqSkMnwgCmfN4kvjSiTBlLEHS6+wATw==}
+
   '@vercel/nft@0.27.10':
     resolution: {integrity: sha512-zbaF9Wp/NsZtKLE4uVmL3FyfFwlpDyuymQM1kPbeT0mVOHKDQQNjnnfslB3REg3oZprmNFJuh3pkHBk2qAaizg==}
     engines: {node: '>=16'}
@@ -1793,6 +1836,10 @@ packages:
   cliui@8.0.1:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
     engines: {node: '>=12'}
+
+  clone@2.1.2:
+    resolution: {integrity: sha512-3Pe/CF1Nn94hyhIYpjtiLhdCoEoz0DqQ+988E9gmeEdQZlojxnOb74wctFyuwWQHzqyf9X7C7MG8juUpqBJT8w==}
+    engines: {node: '>=0.8'}
 
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
@@ -2393,6 +2440,53 @@ packages:
   hermes-parser@0.25.1:
     resolution: {integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==}
 
+  hono-openapi@0.4.4:
+    resolution: {integrity: sha512-8UdlOwqGuKwtmGgiUcxRarIi0XOY9ZED+XfpVaZr9un5jl9p9dTLrnIhs1i+eTqvHNHV4QNF0C5bbfxdMBYe+w==}
+    peerDependencies:
+      '@hono/arktype-validator': ^2.0.0
+      '@hono/effect-validator': ^1.2.0
+      '@hono/typebox-validator': ^0.2.0 || ^0.3.0
+      '@hono/valibot-validator': ^0.5.1
+      '@hono/zod-validator': ^0.4.1
+      '@sinclair/typebox': ^0.34.9
+      '@valibot/to-json-schema': ^1.0.0-beta.3
+      arktype: ^2.0.0-rc.25
+      effect: ^3.11.3
+      hono: ^4.6.13
+      openapi-types: ^12.1.3
+      valibot: ^1.0.0-beta.9
+      zod: ^3.23.8
+      zod-openapi: ^4.0.0
+    peerDependenciesMeta:
+      '@hono/arktype-validator':
+        optional: true
+      '@hono/effect-validator':
+        optional: true
+      '@hono/typebox-validator':
+        optional: true
+      '@hono/valibot-validator':
+        optional: true
+      '@hono/zod-validator':
+        optional: true
+      '@sinclair/typebox':
+        optional: true
+      '@valibot/to-json-schema':
+        optional: true
+      arktype:
+        optional: true
+      effect:
+        optional: true
+      hono:
+        optional: true
+      openapi-types:
+        optional: true
+      valibot:
+        optional: true
+      zod:
+        optional: true
+      zod-openapi:
+        optional: true
+
   hono-pino@0.7.0:
     resolution: {integrity: sha512-A3LnJ3HBJ10Pmj/axLz77PnVq4STXW73C+7jWPotOj1mSdpNsdIH5b/QZeCZ+tA7mBU74LKj3zUynnBKOSFnlA==}
     engines: {node: '>=18'}
@@ -2604,6 +2698,10 @@ packages:
 
   json-schema-traverse@1.0.0:
     resolution: {integrity: sha512-NM8/P9n3XjXhIZn1lLhkFaACTOURQXjWhV4BA/RnOv8xvgqtqpAX9IO4mRQxSx1Rlo4tqzeqb0sOlruaOy3dug==}
+
+  json-schema-walker@2.0.0:
+    resolution: {integrity: sha512-nXN2cMky0Iw7Af28w061hmxaPDaML5/bQD9nwm1lOoIKEGjHcRGxqWe4MfrkYThYAPjSUhmsp4bJNoLAyVn9Xw==}
+    engines: {node: '>=10'}
 
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
@@ -3889,9 +3987,18 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zhead@2.2.4:
+    resolution: {integrity: sha512-8F0OI5dpWIA5IGG5NHUg9staDwz/ZPxZtvGVf01j7vHqSyZ0raHY+78atOVxRqb73AotX22uV1pXt3gYSstGag==}
+
   zip-stream@6.0.1:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
+
+  zod-openapi@4.2.3:
+    resolution: {integrity: sha512-i0SqpcdXfsvVWTIY1Jl3Tk421s9fBIkpXvaA86zDas+8FjfZjm+GX6ot6SPB2SyuHwUNTN02gE5uIVlYXlyrDQ==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.21.4
 
   zod-validation-error@3.4.0:
     resolution: {integrity: sha512-ZOPR9SVY6Pb2qqO5XHt+MkkTRxGXb4EVtnjc9JpXUOtUB1T9Ru7mZOT361AN3MsetVe7R0a1KZshJDZdgp9miQ==}
@@ -3908,6 +4015,12 @@ snapshots:
     dependencies:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
+
+  '@apidevtools/json-schema-ref-parser@11.9.0':
+    dependencies:
+      '@jsdevtools/ono': 7.1.3
+      '@types/json-schema': 7.0.15
+      js-yaml: 4.1.0
 
   '@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1)':
     dependencies:
@@ -4375,6 +4488,13 @@ snapshots:
     dependencies:
       hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
 
+  '@hono/zod-openapi@0.18.3(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1)':
+    dependencies:
+      '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.24.1)
+      '@hono/zod-validator': 0.4.2(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1)
+      hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
+      zod: 3.24.1
+
   '@hono/zod-validator@0.4.2(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1)':
     dependencies:
       hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
@@ -4429,6 +4549,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@jsdevtools/ono@7.1.3': {}
 
   '@jsr/std__bytes@1.0.5': {}
 
@@ -4694,6 +4816,18 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.32.1':
     optional: true
+
+  '@scalar/hono-api-reference@0.5.170(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))':
+    dependencies:
+      '@scalar/types': 0.0.29
+      hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
+
+  '@scalar/openapi-types@0.1.6': {}
+
+  '@scalar/types@0.0.29':
+    dependencies:
+      '@scalar/openapi-types': 0.1.6
+      '@unhead/schema': 1.11.18
 
   '@sindresorhus/merge-streams@2.3.0': {}
 
@@ -5611,6 +5745,11 @@ snapshots:
 
   '@ungap/with-resolvers@0.1.0': {}
 
+  '@unhead/schema@1.11.18':
+    dependencies:
+      hookable: 5.5.3
+      zhead: 2.2.4
+
   '@vercel/nft@0.27.10(rollup@4.32.1)':
     dependencies:
       '@mapbox/node-pre-gyp': 2.0.0
@@ -5904,6 +6043,8 @@ snapshots:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
+
+  clone@2.1.2: {}
 
   clsx@2.1.1: {}
 
@@ -6512,6 +6653,15 @@ snapshots:
     dependencies:
       hermes-estree: 0.25.1
 
+  hono-openapi@0.4.4(@hono/zod-validator@0.4.2(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1))(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod-openapi@4.2.3(zod@3.24.1))(zod@3.24.1):
+    dependencies:
+      json-schema-walker: 2.0.0
+    optionalDependencies:
+      '@hono/zod-validator': 0.4.2(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1)
+      hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
+      zod: 3.24.1
+      zod-openapi: 4.2.3(zod@3.24.1)
+
   hono-pino@0.7.0(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(pino@9.6.0):
     dependencies:
       defu: 6.1.4
@@ -6695,6 +6845,11 @@ snapshots:
   json-schema-traverse@0.4.1: {}
 
   json-schema-traverse@1.0.0: {}
+
+  json-schema-walker@2.0.0:
+    dependencies:
+      '@apidevtools/json-schema-ref-parser': 11.9.0
+      clone: 2.1.2
 
   json-stable-stringify-without-jsonify@1.0.1: {}
 
@@ -7505,11 +7660,13 @@ snapshots:
 
   std-env@3.8.0: {}
 
-  stoker@1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(openapi3-ts@4.4.0):
+  stoker@1.4.2(@asteasolutions/zod-to-openapi@7.3.0(zod@3.24.1))(@hono/zod-openapi@0.18.3(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1))(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(openapi3-ts@4.4.0):
     dependencies:
       '@asteasolutions/zod-to-openapi': 7.3.0(zod@3.24.1)
       hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
       openapi3-ts: 4.4.0
+    optionalDependencies:
+      '@hono/zod-openapi': 0.18.3(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(zod@3.24.1)
 
   streamx@2.22.0:
     dependencies:
@@ -8032,11 +8189,17 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
+  zhead@2.2.4: {}
+
   zip-stream@6.0.1:
     dependencies:
       archiver-utils: 5.0.2
       compress-commons: 6.0.2
       readable-stream: 4.7.0
+
+  zod-openapi@4.2.3(zod@3.24.1):
+    dependencies:
+      zod: 3.24.1
 
   zod-validation-error@3.4.0(zod@3.24.1):
     dependencies:

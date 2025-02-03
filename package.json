@@ -12,17 +12,20 @@
     "lint:fix": "eslint . --fix",
     "preview": "pnpm build && pnpm start",
     "serve": "pnpx serve dist/public",
-    "start": "node dist/server.js",
+    "start": "node --env-file=.env dist/server.js",
     "typecheck": "tsc --noemit"
   },
   "dependencies": {
     "@hono/vite-ssg": "^0.1.1",
+    "@hono/zod-openapi": "^0.18.3",
+    "@scalar/hono-api-reference": "^0.5.170",
     "@std/streams": "npm:@jsr/std__streams@^1.0.9",
     "@tanstack/react-router": "^1.98.4",
     "@tanstack/start": "^1.98.5",
     "@tanstack/start-client": "^1.98.4",
     "@ungap/with-resolvers": "^0.1.0",
     "hono": "^4.6.19",
+    "hono-openapi": "^0.4.4",
     "hono-pino": "^0.7.0",
     "jsesc": "^3.1.0",
     "node": "link:@hono/vite-build/node",
@@ -31,7 +34,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "stoker": "^1.4.2",
-    "zod": "^3.24.1"
+    "zod": "^3.24.1",
+    "zod-openapi": "^4.2.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
