@@ -62,6 +62,16 @@ serve({ fetch: ${appName}.fetch, port: ${port} }, ({ port }) => {
           }
           return result.parsed!
         },
+        exclude: [
+          /.*\.css$/,
+          /.*\.ts$/,
+          /.*\.tsx$/,
+          /^\/@.+$/,
+          /\?t\=\d+$/,
+          // /^\/favicon\.ico$/,
+          /^\/static\/.+/,
+          /^\/node_modules\/.*/,
+        ],
       }),
       ssgBuild({
         entry: 'src/server/server-ssr.ts',

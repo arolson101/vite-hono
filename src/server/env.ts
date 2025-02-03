@@ -40,4 +40,4 @@ export const parseEnv = (runtimeEnv: RuntimeEnv) =>
   })
 
 export type EnvVars = ReturnType<typeof parseEnv>
-export const env = parseEnv(process.env)
+export const env = () => parseEnv(process.env)
