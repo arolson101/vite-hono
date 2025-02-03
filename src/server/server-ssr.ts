@@ -1,16 +1,19 @@
 import { mergeReadableStreams } from '@std/streams/merge-readable-streams'
 import '@ungap/with-resolvers'
+import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { except } from 'hono/combine'
 import { logger } from 'hono/logger'
-import { isSSGContext, ssgParams } from 'hono/ssg'
+import { ssgParams } from 'hono/ssg'
 import type { RedirectStatusCode } from 'hono/utils/http-status'
 import { render } from '~/entry-server.tsx'
 import { createRouter } from '~/router.tsx'
 import server from './server.ts'
+import { AppBindings } from './types.ts'
 
-const serverSsr = server
-  .use(except(isSSGContext, logger()))
+const serverSsr = new Hono<AppBindings>({ strict: false }) //
+  .route('/', server)
+  .use(except(c => !import.meta.env.DEV, logger()))
 
   .get(
     '*',

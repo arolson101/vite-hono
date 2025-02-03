@@ -1,14 +1,9 @@
 import { Await, createFileRoute, defer } from '@tanstack/react-router'
 import { Suspense } from 'react'
+import { trpc } from '~/lib/trpc/react'
 import { rand, sleep } from '~/utils.ts'
 
 export const Route = createFileRoute('/')({
-  
-  // meta: () => [
-  //   {
-  //     title: 'Home',
-  //   },
-  // ],
   loader: async () => {
     const deferred = loadData(1000, 'deferred')
     const critical = await loadData(100, 'critical')
@@ -24,9 +19,13 @@ export const Route = createFileRoute('/')({
 function IndexComponent() {
   const { critical, deferred } = Route.useLoaderData()
 
+  const { data: hello } = trpc.hello.useQuery()
+
   return (
     <div>
       <h2>Home</h2>
+
+      <p>{hello} from trpc!</p>
 
       <p>This home route simply loads some data (with a simulated delay) and displays it.</p>
 

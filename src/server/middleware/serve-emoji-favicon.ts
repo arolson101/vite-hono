@@ -3,7 +3,7 @@ import type { MiddlewareHandler } from 'hono'
 
 const serveEmojiFavicon = (emoji: string, emojiDev?: string): MiddlewareHandler => {
   return async (c, next) => {
-    if (emojiDev && c.env.NODE_ENV === 'development') emoji = emojiDev
+    if (emojiDev && import.meta.env.DEV) emoji = emojiDev
     if (c.req.path === '/favicon.ico') {
       c.header('Content-Type', 'image/svg+xml')
       return c.body(
