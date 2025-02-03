@@ -4,9 +4,15 @@ import adapter from '@hono/vite-dev-server/node'
 import tailwindcss from '@tailwindcss/vite'
 import tanStackRouterVite from '@tanstack/router-plugin/vite'
 import viteReact from '@vitejs/plugin-react'
+import { config } from 'dotenv'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import ssgBuild from './src/lib/hono/plugins/ssg'
+import { parseEnv } from './src/server/env'
+
+// validate env vars before starting
+config()
+parseEnv(process.env)
 
 export default defineConfig(({ mode }) => {
   // server is a seperate build mode because it pollutes the config- prevents css
@@ -18,7 +24,7 @@ export default defineConfig(({ mode }) => {
       plugins: [
         tsconfigPaths(),
         build({
-          entry: 'src/server-prod.ts',
+          entry: 'src/server/server-prod.ts',
           minify: false,
           output: 'server.js',
           port,
@@ -44,11 +50,21 @@ serve({ fetch: ${appName}.fetch, port: ${port} }, ({ port }) => {
       viteReact(),
       tanStackRouterVite(),
       devServer({
-        entry: 'src/server-ssr.ts',
+        entry: 'src/server/server-ssr.ts',
         adapter,
+        env() {
+          const result = config({
+            override: true,
+            // debug: true,
+          })
+          if (result.error) {
+            throw result.error
+          }
+          return result.parsed!
+        },
       }),
       ssgBuild({
-        entry: 'src/server-ssr.ts',
+        entry: 'src/server/server-ssr.ts',
         onComplete: () => {
           console.log('Forcing exit because SSG build hangs vite')
           process.exit(0)

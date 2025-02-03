@@ -3,8 +3,8 @@ import { StartServer } from '@tanstack/start/server'
 import ReactDOMServer from 'react-dom/server'
 // @ts-expect-error https://github.com/facebook/react/issues/26906
 import ReactDOMServerBrowser from 'react-dom/server.browser'
-import { createRouter } from './router'
-import { attachRouterServerSsrUtils, dehydrateRouter } from './lib/tsr/ssr-server'
+import { attachRouterServerSsrUtils, dehydrateRouter } from '~/lib/tsr/ssr-server'
+import { createRouter } from '~/router'
 
 const renderToReadableStream = ReactDOMServer.renderToReadableStream ?? ReactDOMServerBrowser.renderToReadableStream
 
