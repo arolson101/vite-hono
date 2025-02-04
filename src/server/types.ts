@@ -1,3 +1,4 @@
+import { betterAuth } from 'better-auth'
 import { LibSQLDatabase } from 'drizzle-orm/libsql'
 import { Hono } from 'hono'
 import type { schema } from './db'
@@ -9,6 +10,7 @@ export interface AppBindings {
   Bindings: EnvVars
   Variables: {
     // logger: PinoLogger
+    auth: ReturnType<typeof betterAuth>
     db: AppDb
   }
 }

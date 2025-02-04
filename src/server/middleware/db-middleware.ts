@@ -1,20 +1,13 @@
-import { Client, createClient } from '@libsql/client'
+import { createClient } from '@libsql/client'
 import { drizzle } from 'drizzle-orm/libsql'
 import { createMiddleware } from 'hono/factory'
+import { cacheGlobal } from '~/lib/cacheGlobal'
 import { schema } from '~/server/db'
-import { AppBindings, AppDb } from '~/server/types'
-
-type globalThisDb = { db?: AppDb }
+import { AppBindings } from '~/server/types'
 
 export const dbMiddleware = createMiddleware<AppBindings>(async (c, next) => {
-  const db = ((globalThis as globalThisDb).db ??= createDb(c.env.DB_FILE))
+  const client = cacheGlobal('client', () => createClient({ url: c.env.DB_FILE }))
+  const db = drizzle(client, { schema })
   c.set('db', db)
   await next()
 })
-
-function createDb(url: string) {
-  console.log('createDb', url)
-  const client = createClient({ url })
-  const db = drizzle(client, { schema })
-  return db
-}

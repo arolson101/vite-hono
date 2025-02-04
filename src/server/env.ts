@@ -15,6 +15,10 @@ export const parseEnv = (runtimeEnv: RuntimeEnv) =>
       LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']).default('info'),
       MY_VAR: z.string(),
       DB_FILE: z.string().startsWith('file:').default('file:db.sqlite'),
+
+      BETTER_AUTH_SECRET: z.string().min(3),
+      GITHUB_ID: z.string().min(3),
+      GITHUB_SECRET: z.string().min(3),
     },
 
     /**
