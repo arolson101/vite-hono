@@ -1,8 +1,9 @@
 // adapted from https://github.com/honojs/vite-plugins/blob/main/packages/ssg/src/ssg.ts
 import type { Hono } from 'hono'
 import { toSSG } from 'hono/ssg'
-import type { Plugin, ResolvedConfig } from 'vite'
+import type { Plugin } from 'vite'
 import { createServer } from 'vite'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
 type SSGOptions = {
   entry?: string
@@ -25,7 +26,8 @@ export const ssgBuild = (ssgOptions?: SSGOptions): Plugin => {
       {
         const entry = ssgOptions?.entry ?? defaultOptions.entry
         const server = await createServer({
-          plugins: [],
+          plugins: [tsconfigPaths()],
+          configFile: false,
         })
         const module = await server.ssrLoadModule(entry)
 
@@ -48,7 +50,7 @@ export const ssgBuild = (ssgOptions?: SSGOptions): Plugin => {
           { dir },
         )
 
-        server.close()
+        await server.close()
 
         if (!result.success) {
           throw result.error
@@ -78,8 +80,9 @@ export const ssgBuild = (ssgOptions?: SSGOptions): Plugin => {
     },
 
     async writeBundle(_outputOptions, bundle) {
-      await new Promise(resolve => setTimeout(resolve, 100))
-      ssgOptions?.onComplete?.()
+      setTimeout(() => {
+        ssgOptions?.onComplete?.()
+      }, 100)
     },
   }
 }
