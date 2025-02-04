@@ -1,6 +1,5 @@
 import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/node'
-import tailwindcss from '@tailwindcss/vite'
 import tanStackRouterVite from '@tanstack/router-plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import { config } from 'dotenv'
@@ -21,7 +20,6 @@ export default defineConfig(() => {
       copyPublicDir: true,
     },
     plugins: [
-      tailwindcss(),
       tsconfigPaths(),
       viteReact(),
       tanStackRouterVite(),

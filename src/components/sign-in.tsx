@@ -1,21 +1,10 @@
-'use client'
-
-import { Key, Loader2 } from 'lucide-react'
-import { useState } from 'react'
+import { Key } from 'lucide-react'
 import { Button } from '~/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '~/components/ui/card'
-import { Checkbox } from '~/components/ui/checkbox'
-import { Input } from '~/components/ui/input'
-import { Label } from '~/components/ui/label'
-import { signIn } from '~/lib/auth-client'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { signIn } from '~/lib/better-auth/auth-client'
 import { cn } from '~/lib/utils'
 
 export default function SignIn() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [rememberMe, setRememberMe] = useState(false)
-
   return (
     <Card className='max-w-md'>
       <CardHeader>

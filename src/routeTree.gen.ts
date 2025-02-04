@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SigninImport } from './routes/signin'
 import { Route as RedirectImport } from './routes/redirect'
 import { Route as LazyComponentImport } from './routes/lazy-component'
 import { Route as AdminImport } from './routes/admin'
@@ -21,6 +22,12 @@ import { Route as AdminMembersIndexImport } from './routes/admin.members.index'
 import { Route as AdminMembersMemberIdImport } from './routes/admin.members.$memberId'
 
 // Create/Update Routes
+
+const SigninRoute = SigninImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const RedirectRoute = RedirectImport.update({
   id: '/redirect',
@@ -102,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RedirectImport
       parentRoute: typeof rootRoute
     }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninImport
+      parentRoute: typeof rootRoute
+    }
     '/admin/members': {
       id: '/admin/members'
       path: '/members'
@@ -166,6 +180,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteWithChildren
   '/lazy-component': typeof LazyComponentRoute
   '/redirect': typeof RedirectRoute
+  '/signin': typeof SigninRoute
   '/admin/members': typeof AdminMembersRouteWithChildren
   '/admin/': typeof AdminIndexRoute
   '/admin/members/$memberId': typeof AdminMembersMemberIdRoute
@@ -176,6 +191,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/lazy-component': typeof LazyComponentRoute
   '/redirect': typeof RedirectRoute
+  '/signin': typeof SigninRoute
   '/admin': typeof AdminIndexRoute
   '/admin/members/$memberId': typeof AdminMembersMemberIdRoute
   '/admin/members': typeof AdminMembersIndexRoute
@@ -187,6 +203,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteWithChildren
   '/lazy-component': typeof LazyComponentRoute
   '/redirect': typeof RedirectRoute
+  '/signin': typeof SigninRoute
   '/admin/members': typeof AdminMembersRouteWithChildren
   '/admin/': typeof AdminIndexRoute
   '/admin/members/$memberId': typeof AdminMembersMemberIdRoute
@@ -200,6 +217,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/lazy-component'
     | '/redirect'
+    | '/signin'
     | '/admin/members'
     | '/admin/'
     | '/admin/members/$memberId'
@@ -209,6 +227,7 @@ export interface FileRouteTypes {
     | '/'
     | '/lazy-component'
     | '/redirect'
+    | '/signin'
     | '/admin'
     | '/admin/members/$memberId'
     | '/admin/members'
@@ -218,6 +237,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/lazy-component'
     | '/redirect'
+    | '/signin'
     | '/admin/members'
     | '/admin/'
     | '/admin/members/$memberId'
@@ -230,6 +250,7 @@ export interface RootRouteChildren {
   AdminRoute: typeof AdminRouteWithChildren
   LazyComponentRoute: typeof LazyComponentRoute
   RedirectRoute: typeof RedirectRoute
+  SigninRoute: typeof SigninRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -237,6 +258,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRoute: AdminRouteWithChildren,
   LazyComponentRoute: LazyComponentRoute,
   RedirectRoute: RedirectRoute,
+  SigninRoute: SigninRoute,
 }
 
 export const routeTree = rootRoute
@@ -252,7 +274,8 @@ export const routeTree = rootRoute
         "/",
         "/admin",
         "/lazy-component",
-        "/redirect"
+        "/redirect",
+        "/signin"
       ]
     },
     "/": {
@@ -270,6 +293,9 @@ export const routeTree = rootRoute
     },
     "/redirect": {
       "filePath": "redirect.tsx"
+    },
+    "/signin": {
+      "filePath": "signin.tsx"
     },
     "/admin/members": {
       "filePath": "admin.members.tsx",

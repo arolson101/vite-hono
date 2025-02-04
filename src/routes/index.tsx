@@ -1,4 +1,5 @@
 import { Await, createFileRoute, defer } from '@tanstack/react-router'
+import { Link } from '@tanstack/react-router'
 import { Suspense } from 'react'
 import { trpc } from '~/lib/trpc/react'
 import { rand, sleep } from '~/utils.ts'
@@ -26,6 +27,10 @@ function IndexComponent() {
       <h2>Home</h2>
 
       <p>{hello} from trpc!</p>
+
+      <p>
+        <Link to='/signin'>sign in</Link>
+      </p>
 
       <p>This home route simply loads some data (with a simulated delay) and displays it.</p>
 
