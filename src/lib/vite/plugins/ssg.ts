@@ -18,7 +18,7 @@ export const ssgBuild = (ssgOptions?: SSGOptions): Plugin => {
   const assets = new Map<string, string>()
 
   return {
-    name: '@hono/vite-ssg',
+    name: 'vite-plugin-ssg',
     apply: 'build',
     async config() {
       // Create a server to load the module
