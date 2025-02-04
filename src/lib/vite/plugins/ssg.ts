@@ -80,9 +80,7 @@ export const ssgBuild = (ssgOptions?: SSGOptions): Plugin => {
     },
 
     async writeBundle(_outputOptions, bundle) {
-      setTimeout(() => {
-        ssgOptions?.onComplete?.()
-      }, 100)
+      ssgOptions?.onComplete?.()
     },
   }
 }

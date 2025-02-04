@@ -21,7 +21,11 @@ export default defineConfig(() => {
     },
     plugins: [
       tsconfigPaths(),
-      viteReact(),
+      viteReact({
+        babel: {
+          plugins: [['babel-plugin-react-compiler', {}]],
+        },
+      }),
       tanStackRouterVite(),
       devServer({
         entry: 'src/server/server-ssr.ts',
@@ -70,8 +74,10 @@ export default defineConfig(() => {
       ssgBuild({
         entry: 'src/server/server-ssr.ts',
         onComplete: () => {
-          console.log('Forcing exit because SSG build hangs vite')
-          process.exit(0)
+          setTimeout(() => {
+            console.log('Forcing exit because SSG build hangs vite')
+            process.exit(0)
+          }, 1000)
         },
       }),
     ],
