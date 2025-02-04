@@ -6,3 +6,4 @@ drizzle/meta
 src-tauri/gen
 src-tauri/target
 ssr-server.ts
+src/lib/tsr/*

@@ -25,20 +25,7 @@ const serverSsr = new Hono<AppBindings>({ strict: false }) //
           return c.notFound()
         }
 
-        // console.log('rendering', c.req.path)
-        const { router, stream, statusCode } = await render(c.req.path, c.req.raw.signal)
-
-        // Handle redirects
-        if (router.state.redirect) {
-          return c.redirect(router.state.redirect.href, router.state.redirect.statusCode as RedirectStatusCode)
-        }
-
-        let status = statusCode()
-
-        // Handle 404 errors
-        if (router.hasNotFoundMatch() && status !== 500) status = 404
-
-        async function getInjectedScript() {
+        function getInjectedScript() {
           const clientStyle = `<link rel='stylesheet' href='/src/global.css' />`
           const clientScript = `<script type='module' src='/src/entry-client.tsx'></script>`
 
@@ -52,15 +39,26 @@ const serverSsr = new Hono<AppBindings>({ strict: false }) //
   window.__vite_plugin_react_preamble_installed__ = true
 </script>`
             const viteClient = `<script type="module" src="/@vite/client"></script>`
-            return clientStyle + preambleCode + viteClient + clientScript
+            return [clientStyle, preambleCode, viteClient, clientScript]
           } else {
-            return clientStyle + clientScript
+            return [clientStyle, clientScript]
           }
         }
 
-        const injectedItems = promisesToStream(...router.serverSsr!.injectedHtml, getInjectedScript())
+        // console.log('rendering', c.req.path)
+        const { router, stream, statusCode } = await render(c.req.path, c.req.raw.signal, getInjectedScript())
 
-        return new Response(mergeReadableStreams(stream, injectedItems), {
+        // Handle redirects
+        if (router.state.redirect) {
+          return c.redirect(router.state.redirect.href, router.state.redirect.statusCode as RedirectStatusCode)
+        }
+
+        let status = statusCode()
+
+        // Handle 404 errors
+        if (router.hasNotFoundMatch() && status !== 500) status = 404
+
+        return new Response(stream as any, {
           status,
           headers: { 'Content-Type': 'text/html' },
         })

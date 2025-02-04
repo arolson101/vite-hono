@@ -5,13 +5,18 @@ import ReactDOMServer from 'react-dom/server'
 import ReactDOMServerBrowser from 'react-dom/server.browser'
 import { attachRouterServerSsrUtils, dehydrateRouter } from '~/lib/tsr/ssr-server'
 import { createRouter } from '~/router'
+import { transformReadableStreamWithRouter } from './lib/tsr/transformStreamWithRouter'
 
 const renderToReadableStream = ReactDOMServer.renderToReadableStream ?? ReactDOMServerBrowser.renderToReadableStream
 
-export async function render(url: string, signal: AbortSignal) {
+export async function render(url: string, signal: AbortSignal, injectedHtmls: string[]) {
   const router = createRouter()
 
   attachRouterServerSsrUtils(router, undefined)
+
+  for (const injectedHtml of injectedHtmls) {
+    router.serverSsr!.injectedHtml.push(Promise.resolve(injectedHtml))
+  }
 
   const memoryHistory = createMemoryHistory({
     initialEntries: [url],
@@ -37,9 +42,11 @@ export async function render(url: string, signal: AbortSignal) {
     },
   )
 
+  const responseStream = transformReadableStreamWithRouter(router, stream as any)
+
   return {
     router,
-    stream,
+    stream: responseStream,
     statusCode: () => status,
   }
 }
