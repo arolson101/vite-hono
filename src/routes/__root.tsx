@@ -1,6 +1,7 @@
 import type { ErrorComponentProps } from '@tanstack/react-router'
 import { createRootRouteWithContext, ErrorComponent, Link, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { StrictMode } from 'react'
 import { Providers } from '~/components/providers'
 import type { RootRouterContext } from '~/router.ts'
 
@@ -11,42 +12,52 @@ export const Route = createRootRouteWithContext<RootRouterContext>()({
 
 function RootComponent() {
   return (
-    <Providers>
-      <html lang='en'>
-        <head>
-          <meta charSet='utf-8' />
-          <meta name='viewport' content='width=device-width, initial-scale=1' />
-        </head>
+    <StrictMode>
+      <Providers>
+        <html lang='en' suppressHydrationWarning>
+          <head>
+            <meta charSet='utf-8' />
+            <meta name='viewport' content='width=device-width, initial-scale=1' />
+            <script suppressHydrationWarning
+              dangerouslySetInnerHTML={{
+                __html: `
+                    const systemDarkModeClass = window.matchMedia('(prefers-color-scheme: dark)').matches && 'dark'
+                    const darkModeClass = localStorage.getItem('theme') ?? systemDarkModeClass
+                    document.querySelector('html').classList.add(darkModeClass)`,
+              }}
+            />
+          </head>
 
-        <body>
-          <div className='root-nav'>
-            <Link to='/' className='[&.active]:font-bold'>
-              Home
-            </Link>
+          <body>
+            <div className='root-nav'>
+              <Link to='/' className='[&.active]:font-bold'>
+                Home
+              </Link>
 
-            <Link to='/lazy-component' className='[&.active]:font-bold'>
-              Lazy Component
-            </Link>
+              <Link to='/lazy-component' className='[&.active]:font-bold'>
+                Lazy Component
+              </Link>
 
-            <Link to='/redirect' className='[&.active]:font-bold'>
-              Redirect
-            </Link>
+              <Link to='/redirect' className='[&.active]:font-bold'>
+                Redirect
+              </Link>
 
-            <Link to='/admin' className='[&.active]:font-bold'>
-              Admin
-            </Link>
-          </div>
+              <Link to='/admin' className='[&.active]:font-bold'>
+                Admin
+              </Link>
+            </div>
 
-          <hr />
+            <hr />
 
-          <div className='root-content'>
-            <Outlet />
-          </div>
+            <div className='root-content'>
+              <Outlet />
+            </div>
 
-          {import.meta.env.DEV && <TanStackRouterDevtools position='bottom-right' />}
-        </body>
-      </html>
-    </Providers>
+            {import.meta.env.DEV && <TanStackRouterDevtools position='bottom-right' />}
+          </body>
+        </html>
+      </Providers>
+    </StrictMode>
   )
 }
 
