@@ -1,22 +1,20 @@
 // adapted from https://github.com/honojs/vite-plugins/blob/main/packages/ssg/src/ssg.ts
 import type { Hono } from 'hono'
 import { toSSG } from 'hono/ssg'
-import type { Plugin } from 'vite'
+import type { InlineConfig, Plugin } from 'vite'
 import { createServer } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 type SSGOptions = {
-  entry?: string
+  entry: string
   onComplete?: () => void
   dir?: string
 }
 
-export const defaultOptions = {
-  entry: './src/index.tsx',
-} satisfies SSGOptions
-
-export const ssgBuild = (ssgOptions?: SSGOptions): Plugin => {
+export const ssgBuild = (ssgOptions: SSGOptions & InlineConfig): Plugin => {
   const assets = new Map<string, string>()
+
+  const { entry, onComplete, dir = '', ...viteOptions } = ssgOptions
 
   return {
     name: 'vite-plugin-ssg',
@@ -24,8 +22,8 @@ export const ssgBuild = (ssgOptions?: SSGOptions): Plugin => {
     async config() {
       // Create a server to load the module
       {
-        const entry = ssgOptions?.entry ?? defaultOptions.entry
         const server = await createServer({
+          ...viteOptions,
           plugins: [tsconfigPaths()],
           configFile: false,
         })
@@ -36,8 +34,6 @@ export const ssgBuild = (ssgOptions?: SSGOptions): Plugin => {
         if (!app) {
           throw new Error(`Failed to find a named export "default" from ${entry}`)
         }
-
-        const dir = ssgOptions?.dir ?? ''
 
         const result = await toSSG(
           app,
@@ -80,7 +76,7 @@ export const ssgBuild = (ssgOptions?: SSGOptions): Plugin => {
     },
 
     async writeBundle(_outputOptions, bundle) {
-      ssgOptions?.onComplete?.()
+      onComplete?.()
     },
   }
 }

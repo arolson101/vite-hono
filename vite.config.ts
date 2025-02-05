@@ -6,6 +6,7 @@ import { config } from 'dotenv'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import ssgBuild from './src/lib/vite/plugins/ssg'
+import ssgStaticRoutes from './src/lib/vite/plugins/ssg-static-routes'
 import tsupBuild from './src/lib/vite/plugins/tsup'
 import { parseEnv } from './src/server/env'
 
@@ -16,6 +17,7 @@ parseEnv(process.env)
 export default defineConfig(() => {
   return {
     build: {
+      // minify: false,
       outDir: 'dist/public',
       copyPublicDir: true,
     },
@@ -71,7 +73,13 @@ export default defineConfig(() => {
           console.log('Server build complete')
         },
       }),
+      ssgStaticRoutes({
+        routerPath: 'src/router.tsx',
+        output: 'src/server/server-ssr-static-routes.ts',
+        staticDir: './dist/public',
+      }),
       ssgBuild({
+        // mode: 'development',
         entry: 'src/server/server-ssr.ts',
         onComplete: () => {
           setTimeout(() => {
