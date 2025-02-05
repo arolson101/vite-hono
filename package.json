@@ -16,7 +16,7 @@
     "lint:fix": "eslint . --fix",
     "preview": "pnpm build && pnpm start",
     "serve": "pnpx serve dist/public",
-    "start": "node --env-file=.env dist/server-node.js",
+    "start": "node --env-file=.env dist/serve-node.js",
     "typecheck": "tsc --noemit"
   },
   "dependencies": {

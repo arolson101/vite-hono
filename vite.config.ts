@@ -30,7 +30,7 @@ export default defineConfig(() => {
       }),
       tanStackRouterVite(),
       devServer({
-        entry: 'src/server/server-ssr.ts',
+        entry: 'src/server/app.ts',
         adapter,
         env() {
           const result = config({
@@ -54,7 +54,7 @@ export default defineConfig(() => {
         ],
       }),
       tsupBuild({
-        entry: ['src/server/server-node.ts'],
+        entry: ['src/server/serve-node.ts'],
         minify: false,
         format: 'esm',
         target: 'node16',
@@ -66,6 +66,8 @@ export default defineConfig(() => {
           DEV: false,
           //@ts-expect-error does actually support boolean
           PROD: true,
+          //@ts-expect-error does actually support boolean
+          SSR: false,
           NODE_ENV: 'production',
         },
         outDir: 'dist',
@@ -75,12 +77,11 @@ export default defineConfig(() => {
       }),
       ssgStaticRoutes({
         routerPath: 'src/router.tsx',
-        output: 'src/server/server-ssr-static-routes.ts',
-        staticDir: './dist/public',
+        output: 'src/server/static-routes.gen.ts',
       }),
       ssgBuild({
         // mode: 'development',
-        entry: 'src/server/server-ssr.ts',
+        entry: 'src/server/app.ts',
         onComplete: () => {
           setTimeout(() => {
             console.log('Forcing exit because SSG build hangs vite')
