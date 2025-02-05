@@ -1,5 +1,3 @@
-import { mergeReadableStreams } from '@std/streams/merge-readable-streams'
-import '@ungap/with-resolvers'
 import { Hono } from 'hono'
 import { env } from 'hono/adapter'
 import { except } from 'hono/combine'
@@ -25,7 +23,7 @@ const serverSsr = new Hono<AppBindings>({ strict: false }) //
           return c.notFound()
         }
 
-        function getInjectedScript() {
+        function getInjectedScripts() {
           const clientStyle = `<link rel='stylesheet' href='/src/global.css' />`
           const clientScript = `<script type='module' src='/src/entry-client.tsx'></script>`
 
@@ -46,7 +44,7 @@ const serverSsr = new Hono<AppBindings>({ strict: false }) //
         }
 
         // console.log('rendering', c.req.path)
-        const { router, stream, statusCode } = await render(c.req.path, c.req.raw.signal, getInjectedScript())
+        const { router, stream, statusCode } = await render(c.req.path, c.req.raw.signal, getInjectedScripts())
 
         // Handle redirects
         if (router.state.redirect) {
@@ -73,25 +71,5 @@ const serverSsr = new Hono<AppBindings>({ strict: false }) //
       }
     },
   )
-
-function promisesToStream(...promises: Promise<string>[]) {
-  let cancelled = false
-  return new ReadableStream({
-    start(controller) {
-      promises.forEach(promise => {
-        promise.then(value => {
-          controller.enqueue(new TextEncoder().encode(value))
-        })
-      })
-      Promise.allSettled(promises).then(() => {
-        if (cancelled) return
-        controller.close()
-      })
-    },
-    cancel() {
-      cancelled = true
-    },
-  })
-}
 
 export default serverSsr
