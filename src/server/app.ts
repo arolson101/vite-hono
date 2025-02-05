@@ -56,6 +56,6 @@ if (import.meta.env.DEV || import.meta.env.SSR) {
 }
 
 app.use('/*', serveStatic({ root: './dist/public' }))
-app.use('/favicon.ico', serveStatic({ path: './dist/public/favicon.ico' }))
+// app.use('/favicon.ico', serveStatic({ path: './dist/public/favicon.ico' }))
 
 export default app
