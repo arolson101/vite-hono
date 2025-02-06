@@ -22,10 +22,10 @@ export function registerRoutes(app: Hono<any>, router: AnyRouter, handler: Middl
           },
           {} as Record<string, string>,
         )
-      console.log(`app.use('${reqPath}', ssgParams([${JSON.stringify(params)}]), handler`)
+      // console.log(`app.use('${reqPath}', ssgParams([${JSON.stringify(params)}]), handler`)
       app.use(reqPath, ssgParams([params]), handler)
     } else {
-      console.log(`app.use('${reqPath}', handler`)
+      // console.log(`app.use('${reqPath}', handler`)
       app.use(reqPath, handler)
     }
   })
