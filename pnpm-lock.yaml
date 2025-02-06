@@ -4,18 +4,13 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-patchedDependencies:
-  hono:
-    hash: 30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154
-    path: patches/hono.patch
-
 importers:
 
   .:
     dependencies:
       '@hono/trpc-server':
         specifier: ^0.3.4
-        version: 0.3.4(@trpc/server@11.0.0-rc.730(typescript@5.7.3))(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))
+        version: 0.3.4(@trpc/server@11.0.0-rc.730(typescript@5.7.3))(hono@4.6.19)
       '@libsql/client':
         specifier: ^0.14.0
         version: 0.14.0
@@ -63,10 +58,10 @@ importers:
         version: 0.39.1(@libsql/client@0.14.0)(@types/react@19.0.8)(kysely@0.27.5)(react@19.0.0)
       hono:
         specifier: ^4.6.19
-        version: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
+        version: 4.6.19
       hono-pino:
         specifier: ^0.7.0
-        version: 0.7.0(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(pino@9.6.0)
+        version: 0.7.0(hono@4.6.19)(pino@9.6.0)
       jsesc:
         specifier: ^3.1.0
         version: 3.1.0
@@ -103,10 +98,10 @@ importers:
         version: 9.19.0
       '@hono/node-server':
         specifier: ^1.13.7
-        version: 1.13.7(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))
+        version: 1.13.7(hono@4.6.19)
       '@hono/vite-dev-server':
         specifier: ^0.18.1
-        version: 0.18.1(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))
+        version: 0.18.1(hono@4.6.19)
       '@t3-oss/env-core':
         specifier: ^0.11.1
         version: 0.11.1(typescript@5.7.3)(zod@3.24.1)
@@ -5278,19 +5273,19 @@ snapshots:
 
   '@hexagon/base64@1.1.28': {}
 
-  '@hono/node-server@1.13.7(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))':
+  '@hono/node-server@1.13.7(hono@4.6.19)':
     dependencies:
-      hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
+      hono: 4.6.19
 
-  '@hono/trpc-server@0.3.4(@trpc/server@11.0.0-rc.730(typescript@5.7.3))(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))':
+  '@hono/trpc-server@0.3.4(@trpc/server@11.0.0-rc.730(typescript@5.7.3))(hono@4.6.19)':
     dependencies:
       '@trpc/server': 11.0.0-rc.730(typescript@5.7.3)
-      hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
+      hono: 4.6.19
 
-  '@hono/vite-dev-server@0.18.1(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))':
+  '@hono/vite-dev-server@0.18.1(hono@4.6.19)':
     dependencies:
-      '@hono/node-server': 1.13.7(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))
-      hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
+      '@hono/node-server': 1.13.7(hono@4.6.19)
+      hono: 4.6.19
       minimatch: 9.0.5
 
   '@humanfs/core@0.19.1': {}
@@ -7778,13 +7773,13 @@ snapshots:
     dependencies:
       parse-passwd: 1.0.0
 
-  hono-pino@0.7.0(hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154))(pino@9.6.0):
+  hono-pino@0.7.0(hono@4.6.19)(pino@9.6.0):
     dependencies:
       defu: 6.1.4
-      hono: 4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154)
+      hono: 4.6.19
       pino: 9.6.0
 
-  hono@4.6.19(patch_hash=30e504b46fbfa62cba7694c8219b14e3201d3da718835fcdd1a3e3a95e30a154): {}
+  hono@4.6.19: {}
 
   hookable@5.5.3: {}
 
