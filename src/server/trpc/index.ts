@@ -15,7 +15,7 @@ const router = t.router
 
 export const appRouter = router({
   hello: publicProcedure.input(z.string().nullish()).query(({ input, ctx: { env } }) => {
-    return `Hello ${input ?? 'World'}! (${env.MY_VAR})`
+    return `Hello ${input ?? 'World'}!`
   }),
 })
 

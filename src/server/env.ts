@@ -13,7 +13,6 @@ export const parseEnv = (runtimeEnv: RuntimeEnv) =>
       NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
       PORT: z.number().default(9999),
       LOG_LEVEL: z.enum(['trace', 'debug', 'info', 'warn', 'error', 'fatal']).default('info'),
-      MY_VAR: z.string(),
       DB_FILE: z.string().startsWith('file:').default('file:db.sqlite'),
 
       BETTER_AUTH_SECRET: z.string().min(3),
