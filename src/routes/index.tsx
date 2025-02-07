@@ -1,6 +1,7 @@
 import { Await, createFileRoute, defer } from '@tanstack/react-router'
 import { Link } from '@tanstack/react-router'
 import { Suspense } from 'react'
+import { useSession } from '~/lib/better-auth/auth-client'
 import { trpc } from '~/lib/trpc/react'
 import { rand, sleep } from '~/utils.ts'
 
@@ -20,7 +21,9 @@ export const Route = createFileRoute('/')({
 function IndexComponent() {
   const { critical, deferred } = Route.useLoaderData()
 
-  const { data: hello } = trpc.hello.useQuery()
+  const { data: hello } = trpc.hello.world.useQuery()
+
+  const session = useSession()
 
   return (
     <div>
@@ -29,7 +32,15 @@ function IndexComponent() {
       <p>{hello} from trpc!</p>
 
       <p>
-        <Link to='/signin'>sign in</Link>
+        {session.data ? (
+          <>Signed in as {session.data.user.name}</>
+        ) : (
+          <>
+            Not signed in.
+            <br />
+            <Link to='/signin'>sign in</Link>
+          </>
+        )}
       </p>
 
       <p>This home route simply loads some data (with a simulated delay) and displays it.</p>

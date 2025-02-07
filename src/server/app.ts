@@ -9,6 +9,7 @@ import { createRouter } from '~/router'
 import { betterAuthMiddleware } from './middleware/better-auth-middleware'
 import { dbMiddleware } from './middleware/db-middleware'
 import { envMiddleware } from './middleware/env-middleware'
+import { logMiddleware } from './middleware/log-middleware'
 import serveEmojiFavicon from './middleware/serve-emoji-favicon'
 import { staticRoutes } from './static-routes.gen'
 import { appRouter, TRPCContext } from './trpc'
@@ -16,6 +17,7 @@ import { AppBindings } from './types'
 
 const app = new Hono<AppBindings>({ strict: false })
 app.use(envMiddleware)
+app.use(logMiddleware)
 app.use(dbMiddleware)
 app.use(betterAuthMiddleware)
 app.use(serveEmojiFavicon('🔥', '💧'))
@@ -36,7 +38,10 @@ app.use(
     createContext(_opts, c: Context<AppBindings>): TRPCContext {
       return {
         env: c.env,
+        log: c.var.log,
         db: c.var.db,
+        user: c.var.user,
+        session: c.var.session,
       }
     },
   }),
