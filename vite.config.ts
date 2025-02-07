@@ -1,8 +1,8 @@
+import { config } from '@dotenvx/dotenvx'
 import devServer from '@hono/vite-dev-server'
 import adapter from '@hono/vite-dev-server/node'
 import tanStackRouterVite from '@tanstack/router-plugin/vite'
 import viteReact from '@vitejs/plugin-react'
-import { config } from 'dotenv'
 import { defineConfig } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import ssgBuild from './src/lib/vite/plugins/ssg'
@@ -11,7 +11,7 @@ import tsupBuild from './src/lib/vite/plugins/tsup'
 import { parseEnv } from './src/server/env'
 
 // validate env vars before starting
-config()
+config({ quiet: true })
 parseEnv(process.env)
 
 export default defineConfig(() => {
@@ -34,6 +34,7 @@ export default defineConfig(() => {
         adapter,
         env() {
           const result = config({
+            quiet: true,
             override: true,
             // debug: true,
           })
