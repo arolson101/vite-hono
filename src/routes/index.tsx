@@ -23,6 +23,15 @@ function IndexComponent() {
 
   const { data: hello } = trpc.hello.world.useQuery()
 
+  trpc.hello.mySubscription.useSubscription(
+    { lastEventId: 1 },
+    {
+      onData(data) {
+        console.log(data)
+      },
+    },
+  )
+
   const session = useSession()
 
   return (
