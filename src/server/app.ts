@@ -15,12 +15,14 @@ import { staticRoutes } from './static-routes.gen'
 import { appRouter, TRPCContext } from './trpc'
 import { AppBindings } from './types'
 
+export const emojiIcon = import.meta.env.DEV ? '💧' : '🔥'
+
 const app = new Hono<AppBindings>({ strict: false })
 app.use(envMiddleware)
 app.use(logMiddleware)
 app.use(dbMiddleware)
 app.use(betterAuthMiddleware)
-app.use(serveEmojiFavicon('🔥', '💧'))
+app.use(serveEmojiFavicon(emojiIcon))
 
 if (import.meta.env.DEV) {
   app.use(logger())

@@ -1,26 +1,10 @@
-import { betterAuth } from 'better-auth'
-import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { passkey } from 'better-auth/plugins/passkey'
 import { createMiddleware } from 'hono/factory'
 import { cacheGlobal } from '~/lib/cacheGlobal'
+import { createAuth, type User } from '~/server/auth'
 import { AppBindings } from '~/server/types'
 
 export const betterAuthMiddleware = createMiddleware<AppBindings>(async (c, next) => {
-  const auth = cacheGlobal('auth', () =>
-    betterAuth({
-      secret: c.env.BETTER_AUTH_SECRET,
-      socialProviders: {
-        github: {
-          clientId: c.env.GITHUB_ID,
-          clientSecret: c.env.GITHUB_SECRET,
-        },
-      },
-      plugins: [passkey()],
-      database: drizzleAdapter(c.get('db'), {
-        provider: 'sqlite', // or "pg" or "mysql"
-      }),
-    }),
-  )
+  const auth = cacheGlobal('auth', () => createAuth(c.env, c.var.db))
 
   c.set('auth', auth)
 
@@ -32,7 +16,7 @@ export const betterAuthMiddleware = createMiddleware<AppBindings>(async (c, next
     return next()
   }
 
-  c.set('user', session.user)
+  c.set('user', session.user as User)
   c.set('session', session.session)
 
   await next()

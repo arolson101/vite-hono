@@ -44,6 +44,7 @@
     "hono-pino": "^0.7.0",
     "jsesc": "^3.1.0",
     "lucide-react": "^0.474.0",
+    "nanoid": "^5.1.2",
     "node": "link:@hono/vite-build/node",
     "pino": "^9.6.0",
     "pino-pretty": "^13.0.0",
