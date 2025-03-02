@@ -7,6 +7,7 @@ const config = {
   ],
   importOrder: [
     'server-only', //
+    '^react-scan$',
     '^@core/(.*)$',
     '<THIRD_PARTY_MODULES>',
     '^@server/(.*)$',
