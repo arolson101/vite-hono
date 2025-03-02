@@ -1,5 +1,5 @@
 import { createMemoryHistory } from '@tanstack/react-router'
-import { StartServer } from '@tanstack/start/server'
+import { StartServer } from '@tanstack/react-start/server'
 import ReactDOMServer from 'react-dom/server'
 // @ts-expect-error https://github.com/facebook/react/issues/26906
 import ReactDOMServerBrowser from 'react-dom/server.browser'

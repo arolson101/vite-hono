@@ -1,3 +1,4 @@
+import dedent from 'dedent'
 import { Context } from 'hono'
 import { env } from 'hono/adapter'
 import type { RedirectStatusCode } from 'hono/utils/http-status'
@@ -38,20 +39,20 @@ export async function ssr(c: Context) {
   }
 }
 
-const preambleCode = `<script type="module">
-    import RefreshRuntime from '/@react-refresh'
-    RefreshRuntime.injectIntoGlobalHook(window)
-    window.$RefreshReg$ = () => {}
-    window.$RefreshSig$ = () => (type) => type
-    window.__vite_plugin_react_preamble_installed__ = true
-  </script>`
-
-const viteClient = `<script type="module" src="/@vite/client"></script>`
+const preambleCode = dedent`
+<script type="module">
+  import RefreshRuntime from '/@react-refresh'
+  RefreshRuntime.injectIntoGlobalHook(window)
+  window.$RefreshReg$ = () => {}
+  window.$RefreshSig$ = () => (type) => type
+  window.__vite_plugin_react_preamble_installed__ = true
+</script>
+`
 
 function getInjectedScripts(c: Context) {
   const { NODE_ENV } = env(c)
   if (NODE_ENV === 'development') {
-    return [preambleCode, viteClient]
+    return [preambleCode]
   } else {
     return []
   }

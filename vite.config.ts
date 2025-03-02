@@ -26,12 +26,12 @@ export default defineConfig(() => {
     },
     plugins: [
       tsconfigPaths(),
+      tanStackRouterVite(),
       viteReact({
         babel: {
           plugins: [['babel-plugin-react-compiler', {}]],
         },
       }),
-      tanStackRouterVite(),
       devServer({
         entry: 'src/server/app.ts',
         adapter,

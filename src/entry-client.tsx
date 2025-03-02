@@ -1,5 +1,5 @@
 import { scan } from 'react-scan'
-import { StartClient } from '@tanstack/start'
+import { StartClient } from '@tanstack/react-start'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createRouter } from './router'

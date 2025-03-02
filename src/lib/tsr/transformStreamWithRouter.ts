@@ -1,4 +1,4 @@
-//https://github.com/TanStack/router/blob/main/packages/start-server/src/transformStreamWithRouter.ts
+// https://github.com/TanStack/router/blob/main/packages/react-start-server/src/transformStreamWithRouter.ts
 import { ReadableStream } from 'node:stream/web'
 import { Readable } from 'node:stream'
 import { createControlledPromise } from '@tanstack/react-router'

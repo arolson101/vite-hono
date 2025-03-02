@@ -24,12 +24,13 @@ export const helloRouter = createTRPCRouter({
     )
     .subscription(async function* (opts) {
       let index = opts.input.lastEventId ?? 0
-      while (true) {
+      const signal = opts.signal
+      while (index < 5 && !signal?.aborted) {
         index++
         yield tracked(index.toString(), {
           count: index,
         })
-        await new Promise(resolve => setTimeout(resolve, 1000))
+        await new Promise(resolve => setTimeout(resolve, 5000))
       }
     }),
 })

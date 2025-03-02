@@ -1,12 +1,37 @@
 import { isServer } from '@tanstack/react-query'
 import type { ErrorComponentProps } from '@tanstack/react-router'
-import { createRootRouteWithContext, ErrorComponent, Link, Outlet } from '@tanstack/react-router'
+import { createRootRouteWithContext, ErrorComponent, HeadContent, Link, Outlet, Scripts } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import dedent from 'dedent'
 import { StrictMode } from 'react'
 import { Providers } from '~/components/providers'
 import type { RootRouterContext } from '~/router.ts'
 
 export const Route = createRootRouteWithContext<RootRouterContext>()({
+  head(ctx) {
+    return {
+      meta: [{ charSet: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
+      links: [
+        {
+          rel: 'stylesheet',
+          href: '/src/global.css',
+        },
+      ],
+      scripts: [
+        {
+          children: dedent`
+            const systemDarkModeClass = window.matchMedia('(prefers-color-scheme: dark)').matches && 'dark';
+            const darkModeClass = localStorage.getItem('theme') ?? systemDarkModeClass;
+            document.querySelector('html').classList.add(darkModeClass);
+          `,
+        },
+        {
+          type: 'module',
+          src: '/src/entry-client.tsx',
+        },
+      ],
+    }
+  },
   component: RootComponent,
   errorComponent: RootErrorComponent,
 })
@@ -17,22 +42,7 @@ function RootComponent() {
       <Providers>
         <html lang='en' suppressHydrationWarning>
           <head>
-            <meta charSet='utf-8' />
-            <meta name='viewport' content='width=device-width, initial-scale=1' />
-            <script suppressHydrationWarning>
-              {`
-              const systemDarkModeClass = window.matchMedia('(prefers-color-scheme: dark)').matches && 'dark';
-              const darkModeClass = localStorage.getItem('theme') ?? systemDarkModeClass;
-              document.querySelector('html').classList.add(darkModeClass);
-              `}
-            </script>
-
-            {isServer && (
-              <>
-                <link rel='stylesheet' href='/src/global.css' />
-                <script type='module' src='/src/entry-client.tsx'></script>
-              </>
-            )}
+            <HeadContent />
           </head>
 
           <body>
@@ -62,6 +72,7 @@ function RootComponent() {
 
             {import.meta.env.DEV && <TanStackRouterDevtools position='bottom-right' />}
           </body>
+          <Scripts />
         </html>
       </Providers>
     </StrictMode>

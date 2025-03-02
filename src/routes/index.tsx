@@ -27,7 +27,7 @@ function IndexComponent() {
     { lastEventId: 1 },
     {
       onData(data) {
-        console.log(data)
+        // console.log(data)
       },
     },
   )
