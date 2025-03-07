@@ -4,9 +4,9 @@ import adapter from '@hono/vite-dev-server/node'
 import tanStackRouterVite from '@tanstack/router-plugin/vite'
 import viteReact from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import { createHtmlPlugin } from 'vite-plugin-html'
+import { sri } from 'vite-plugin-sri3'
 import tsconfigPaths from 'vite-tsconfig-paths'
-import ssgBuild from './src/lib/vite/plugins/ssg'
-import ssgStaticRoutes from './src/lib/vite/plugins/ssg-static-routes'
 import tsupBuild from './src/lib/vite/plugins/tsup'
 import { parseEnv } from './src/server/env'
 
@@ -32,6 +32,16 @@ export default defineConfig(() => {
           plugins: [['babel-plugin-react-compiler', {}]],
         },
       }),
+      createHtmlPlugin({
+        minify: true,
+        entry: 'src/root.tsx',
+        inject: {
+          data: {
+            title: 'index',
+          },
+        },
+      }),
+      sri(),
       devServer({
         entry: 'src/server/app.ts',
         adapter,
@@ -47,14 +57,7 @@ export default defineConfig(() => {
           return result.parsed!
         },
         exclude: [
-          /.*\.css$/,
-          /.*\.ts$/,
-          /.*\.tsx$/,
-          /^\/@.+$/,
-          /\?t\=\d+$/,
-          // /^\/favicon\.ico$/,
-          /^\/static\/.+/,
-          /^\/node_modules\/.*/,
+          /^(?!\/(favicon|api|trpc)).*/, // exclude all routes that are not /api or /trpc or favicon
         ],
       }),
       tsupBuild({
@@ -77,20 +80,6 @@ export default defineConfig(() => {
         outDir: 'dist',
         async onSuccess() {
           console.log('Server build complete')
-        },
-      }),
-      ssgStaticRoutes({
-        routerPath: 'src/router.tsx',
-        output: 'src/server/static-routes.gen.ts',
-      }),
-      ssgBuild({
-        // mode: 'development',
-        entry: 'src/server/app.ts',
-        onComplete: () => {
-          setTimeout(() => {
-            console.log('Forcing exit because SSG build hangs vite')
-            process.exit(0)
-          }, 1000)
         },
       }),
     ],

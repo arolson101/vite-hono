@@ -4,9 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS <%- title %></title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
+    <script>
+      const systemDarkModeClass = window.matchMedia('(prefers-color-scheme: dark)').matches && 'dark'
+      const darkModeClass = localStorage.getItem('theme') ?? systemDarkModeClass
+      document.querySelector('html').classList.add(darkModeClass)
+    </script>
   </head>
   <body>
-    <p>this is a dead html file</p>
+    <div id="root"></div>
   </body>
 </html>
