@@ -1,37 +1,15 @@
+import { Meta } from '@ssrx/plugin-tanstack-router'
 import { isServer } from '@tanstack/react-query'
 import type { ErrorComponentProps } from '@tanstack/react-router'
-import { createRootRouteWithContext, ErrorComponent, HeadContent, Link, Outlet, Scripts } from '@tanstack/react-router'
+import { createRootRouteWithContext, ErrorComponent, Link, Outlet, ScrollRestoration } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import dedent from 'dedent'
 import { StrictMode } from 'react'
 import { Providers } from '~/components/providers'
 import type { RootRouterContext } from '~/router.ts'
+import './__root.css'
 
 export const Route = createRootRouteWithContext<RootRouterContext>()({
-  head(ctx) {
-    return {
-      meta: [{ charSet: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
-      links: [
-        {
-          rel: 'stylesheet',
-          href: '/src/global.css',
-        },
-      ],
-      scripts: [
-        {
-          children: dedent`
-            const systemDarkModeClass = window.matchMedia('(prefers-color-scheme: dark)').matches && 'dark';
-            const darkModeClass = localStorage.getItem('theme') ?? systemDarkModeClass;
-            document.querySelector('html').classList.add(darkModeClass);
-          `,
-        },
-        {
-          type: 'module',
-          src: '/src/entry-client.tsx',
-        },
-      ],
-    }
-  },
   component: RootComponent,
   errorComponent: RootErrorComponent,
 })
@@ -42,7 +20,9 @@ function RootComponent() {
       <Providers>
         <html lang='en' suppressHydrationWarning>
           <head>
-            <HeadContent />
+            <meta charSet='utf-8' />
+            <meta name='viewport' content='width=device-width, initial-scale=1' />
+            <Meta />
           </head>
 
           <body>
@@ -70,9 +50,10 @@ function RootComponent() {
               <Outlet />
             </div>
 
+            <ScrollRestoration />
+
             {import.meta.env.DEV && <TanStackRouterDevtools position='bottom-right' />}
           </body>
-          <Scripts />
         </html>
       </Providers>
     </StrictMode>

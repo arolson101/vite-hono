@@ -1,18 +1,12 @@
 import dedent from 'dedent'
 import { Context } from 'hono'
-import { env } from 'hono/adapter'
 import type { RedirectStatusCode } from 'hono/utils/http-status'
 import { render } from '~/entry-server.tsx'
 
 export async function ssr(c: Context) {
   try {
-    // this happens during SSG (I don't know why); prevent a '.txt' file from being created
-    if (c.req.path.includes('*')) {
-      return c.notFound()
-    }
-
     // console.log('rendering', c.req.path)
-    const { router, stream, statusCode } = await render(c.req.path, c.req.raw.signal, getInjectedScripts(c))
+    const { router, stream, statusCode } = await render(c.req.path, c.req.raw.signal, getInjectedScripts())
 
     // Handle redirects
     if (router.state.redirect) {
@@ -40,20 +34,28 @@ export async function ssr(c: Context) {
 }
 
 const preambleCode = dedent`
-<script type="module">
-  import RefreshRuntime from '/@react-refresh'
-  RefreshRuntime.injectIntoGlobalHook(window)
-  window.$RefreshReg$ = () => {}
-  window.$RefreshSig$ = () => (type) => type
-  window.__vite_plugin_react_preamble_installed__ = true
-</script>
+  <script type="module">
+    import RefreshRuntime from '/@react-refresh'
+    RefreshRuntime.injectIntoGlobalHook(window)
+    window.$RefreshReg$ = () => {}
+    window.$RefreshSig$ = () => (type) => type
+    window.__vite_plugin_react_preamble_installed__ = true
+  </script>
 `
 
-function getInjectedScripts(c: Context) {
-  const { NODE_ENV } = env(c)
-  if (NODE_ENV === 'development') {
-    return [preambleCode]
+function getInjectedScripts() {
+  if (import.meta.env.DEV && !import.meta.env.SSR) {
+    return [preambleCode, styleTag('/src/global.css'), scriptTag('/src/entry-client.tsx')]
   } else {
     return []
+    // return [styleTag('/assets/entry-client-qyW2uCox.css'), scriptTag('/assets/entry-client-Cnft2tth.js')]
   }
+}
+
+function scriptTag(src: string) {
+  return `<script type="module" src="${src}"></script>`
+}
+
+function styleTag(href: string) {
+  return `<link rel="stylesheet" href="${href}" />`
 }

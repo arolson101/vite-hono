@@ -1,7 +1,7 @@
-import { scan } from 'react-scan'
-import { StartClient } from '@tanstack/react-start'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { scan } from 'react-scan'
+import { clientHandler } from '~/app.tsx'
 import { createRouter } from './router'
 
 if (import.meta.env.DEV) {
@@ -10,6 +10,12 @@ if (import.meta.env.DEV) {
   })
 }
 
-const router = createRouter()
+async function hydrate() {
+  const renderApp = await clientHandler({
+    renderProps: { router: createRouter() },
+  })
 
-ReactDOM.hydrateRoot(document, <StartClient router={router} />)
+  ReactDOM.hydrateRoot(document, renderApp())
+}
+
+void hydrate()

@@ -25,6 +25,7 @@ export const ssgBuild = (ssgOptions: SSGOptions & InlineConfig): Plugin => {
         const server = await createServer({
           ...viteOptions,
           plugins: [tsconfigPaths()],
+          server: { watch: null },
           configFile: false,
         })
         const module = await server.ssrLoadModule(entry)
